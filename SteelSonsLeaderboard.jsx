@@ -30,7 +30,7 @@ export default function SteelSonsLeaderboard() {
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
 
-        const newMain = rows.slice(0, 300);
+        const newMain = rows.slice(2, 302); // skip row 0 and 1 (titles + header), get 300 rows of data
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
 
@@ -111,16 +111,16 @@ export default function SteelSonsLeaderboard() {
                 })}
               </tr>
               <tr>
-                {mainData[1]?.slice(0, 12).map((cell, j) => (
+                {rows[1]?.slice(0, 12).map((cell, j) => (
                   <th key={j} className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`}>{cell}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {mainData.slice(2).map((row, i) => (
+              {mainData.map((row, i) => (
                 <tr
                   key={i}
-                  className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 3) ? 'border-b border-black' : ''}`}
+                  className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 1) ? 'border-b border-black' : ''}`}
                 >
                   {row.slice(0, 12).map((cell, j) => (
                     <td
