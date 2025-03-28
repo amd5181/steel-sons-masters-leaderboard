@@ -16,9 +16,11 @@ export default function SteelSonsLeaderboard() {
     const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${Date.now()}`;
 
     fetch(url, {
-      cache: 'no-store',
+      cache: 'no-store',  // Disable browser cache for fresh data
       headers: {
-        'Cache-Control': 'no-cache'
+        'Cache-Control': 'no-cache',  // Ensure data is not cached
+        'Pragma': 'no-cache',
+        'Expires': '0'
       }
     })
       .then((res) => res.text())
@@ -47,16 +49,17 @@ export default function SteelSonsLeaderboard() {
         }
 
         setLastUpdated(new Date().toLocaleTimeString());
-      });
+      })
+      .catch((error) => console.error("❌ Fetch error:", error));
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(); // Initial data fetch on load
     let countdown = 20;
     const intervalId = setInterval(() => {
       countdown -= 1;
       if (countdown <= 0) {
-        fetchData();
+        fetchData();  // Fetch data every 20 seconds
         countdown = 20;
       }
       setRefreshCountdown(countdown);
