@@ -5,12 +5,9 @@ export default function SteelSonsLeaderboard() {
   const [mainData, setMainData] = useState([]);
   const [mastersData, setMastersData] = useState([]);
   const [summaryData, setSummaryData] = useState([]);
+  const [columnHeaders, setColumnHeaders] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [refreshCountdown, setRefreshCountdown] = useState(20);
-
-  const previousMainData = useRef([]);
-  const previousMastersData = useRef([]);
-  const previousSummaryData = useRef([]);
 
   const fetchData = () => {
     const timestamp = Date.now();
@@ -26,36 +23,14 @@ export default function SteelSonsLeaderboard() {
     })
       .then((res) => res.text())
       .then((text) => {
-        console.log("📥 Fetch Timestamp:", timestamp);
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
 
-        const newMain = rows.slice(0, 300);
-        const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
-        const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
-
-        const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-
-        if (!isEqual(previousMainData.current, newMain)) {
-          console.log("✅ Main data changed");
-          previousMainData.current = newMain;
-          setMainData(newMain);
-        }
-        if (!isEqual(previousMastersData.current, newMasters)) {
-          console.log("✅ Masters data changed");
-          previousMastersData.current = newMasters;
-          setMastersData(newMasters);
-        }
-        if (!isEqual(previousSummaryData.current, newSummary)) {
-          console.log("✅ Summary data changed");
-          previousSummaryData.current = newSummary;
-          setSummaryData(newSummary);
-        }
-
+        setColumnHeaders(rows[2]);
+        setMainData(rows.slice(3, 303));
+        setSummaryData(rows.slice(1, 60).map((r) => r.slice(13, 16)));
+        setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 19)));
         setLastUpdated(new Date().toLocaleTimeString());
-      })
-      .catch((err) => {
-        console.error("❌ Fetch error:", err);
       });
   };
 
@@ -70,7 +45,6 @@ export default function SteelSonsLeaderboard() {
       }
       setRefreshCountdown(countdown);
     }, 1000);
-
     return () => clearInterval(intervalId);
   }, []);
 
@@ -88,6 +62,7 @@ export default function SteelSonsLeaderboard() {
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer z-0" />
 
       <div className="flex flex-1 gap-4 z-10">
+        {/* Left Table */}
         <div className="w-2/3 overflow-auto overlay">
           <h2 className={`text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
           <table className="w-full text-sm border border-black rounded-xl overflow-hidden">
@@ -106,25 +81,16 @@ export default function SteelSonsLeaderboard() {
                 })}
               </tr>
               <tr>
-                {mainData[1]?.slice(0, 12).map((cell, j) => (
+                {columnHeaders?.slice(0, 12).map((cell, j) => (
                   <th key={j} className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`}>{cell}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {mainData.slice(2).map((row, i) => (
-                <tr
-                  key={i}
-                  className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 3) ? 'border-b border-black' : ''}`}
-                >
+              {mainData.map((row, i) => (
+                <tr key={i} className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 1) ? 'border-b border-black' : ''}`}>
                   {row.slice(0, 12).map((cell, j) => (
-                    <td
-                      key={j}
-                      className={`px-2 py-1 ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`}
-                      style={{ borderBottom: 'none' }}
-                    >
-                      {cell}
-                    </td>
+                    <td key={j} className={`px-2 py-1 ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`} style={{ borderBottom: 'none' }}>{cell}</td>
                   ))}
                 </tr>
               ))}
@@ -132,6 +98,7 @@ export default function SteelSonsLeaderboard() {
           </table>
         </div>
 
+        {/* Right Pane */}
         <div className="w-1/3 overlay rounded-2xl border border-black p-4">
           <div className="mb-6">
             <h2 className={`text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
@@ -146,7 +113,6 @@ export default function SteelSonsLeaderboard() {
               </tbody>
             </table>
           </div>
-
           <div>
             <h2 className={`text-xl font-semibold mb-2 ${headerStyle}`}>Summary</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
