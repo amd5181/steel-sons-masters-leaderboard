@@ -1,12 +1,9 @@
-
 import { useEffect, useState } from "react";
 import Papa from "papaparse";
 
 export default function SteelSonsLeaderboard() {
   const [mainData, setMainData] = useState([]);
-  const [lastUpdated, setLastUpdated] = useState(null);
   const [mastersData, setMastersData] = useState([]);
-  const [lastUpdated, setLastUpdated] = useState(null);
   const [summaryData, setSummaryData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
 
@@ -18,9 +15,10 @@ export default function SteelSonsLeaderboard() {
       .then((text) => {
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
-        setMainData(rows.slice(0, 300)); setLastUpdated(new Date().toLocaleTimeString());
+        setMainData(rows.slice(0, 300));
         setSummaryData(rows.slice(1, 60).map((r) => r.slice(13, 15)));
         setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 18)));
+        setLastUpdated(new Date().toLocaleTimeString());
       });
   }, []);
 
@@ -50,7 +48,7 @@ export default function SteelSonsLeaderboard() {
         <table className="w-full text-sm">
           <tbody>
             {mainData.map((row, i) => (
-              <tr key={i} className="border-b border-gray-800">
+              <tr key={i} className="border-b border-gray-800 hover:bg-orange-400/20">
                 {row.slice(0, 12).map((cell, j) => (
                   <td key={j} className="px-2 py-1">
                     {cell}
@@ -87,7 +85,8 @@ export default function SteelSonsLeaderboard() {
             ))}
           </ul>
         </div>
-      <p className="text-xs mt-4">Last updated: {lastUpdated}</p></div>
+        <p className="text-xs mt-4">Last updated: {lastUpdated}</p>
+      </div>
     </div>
   );
 }
