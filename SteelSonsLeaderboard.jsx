@@ -31,7 +31,6 @@ export default function SteelSonsLeaderboard() {
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
 
-        // Compare before updating state
         const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
         if (!isEqual(previousMainData.current, newMain)) {
@@ -70,27 +69,34 @@ export default function SteelSonsLeaderboard() {
 
   return (
     <div className="flex flex-col min-h-screen p-4 relative" style={{ fontFamily: 'Inter' }}>
-      {/* Header */}
       <div className="text-center mb-4 z-10">
         <h1 className={`text-4xl font-extrabold drop-shadow-lg ${headerStyle}`}>2025 Steel Sons Masters Pool</h1>
         <p className="text-md italic text-gray-700 mt-1">"You can lead a horse to the stable, but you can't make him drink water from the bowl!"</p>
         <p className="text-xs mt-2 text-gray-600">Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s</p>
       </div>
 
-      {/* Background visual elements */}
       <div className="bridge-watermark"></div>
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
-      {/* Main layout */}
       <div className="flex flex-1 gap-4">
-        {/* Main Standings */}
         <div className="w-2/3 overflow-auto overlay">
           <h2 className={`text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
           <table className="w-full text-sm border border-black rounded-xl overflow-hidden">
             <thead>
               <tr>
+                {mainData[1]?.slice(0, 12).map((_, j) => {
+                  if (j === 6) {
+                    return <th key="completed-header" colSpan={4} className="text-center font-bold bg-white/80 border-b border-black">Completed Rounds</th>;
+                  }
+                  if (j === 10) {
+                    return <th key="current-header" colSpan={2} className="text-center font-bold bg-white/80 border-b border-black">Current Round</th>;
+                  }
+                  return j < 6 ? <th key={j}></th> : null;
+                })}
+              </tr>
+              <tr>
                 {mainData[1]?.slice(0, 12).map((cell, j) => (
-                  <th key={j} className="px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80">{cell}</th>
+                  <th key={j} className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`}>{cell}</th>
                 ))}
               </tr>
             </thead>
@@ -115,9 +121,7 @@ export default function SteelSonsLeaderboard() {
           </table>
         </div>
 
-        {/* Right Pane */}
         <div className="w-1/3 overlay rounded-2xl border border-black p-4">
-          {/* Masters Leaderboard */}
           <div className="mb-6">
             <h2 className={`text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
@@ -132,7 +136,6 @@ export default function SteelSonsLeaderboard() {
             </table>
           </div>
 
-          {/* Summary Leaderboard */}
           <div>
             <h2 className={`text-xl font-semibold mb-2 ${headerStyle}`}>Summary</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
