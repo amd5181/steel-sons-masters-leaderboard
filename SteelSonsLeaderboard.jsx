@@ -42,6 +42,14 @@ export default function SteelSonsLeaderboard() {
 
   return (
     <div className="flex min-h-screen p-4 relative" style={{ fontFamily: 'Inter' }}>
+      {/* Watermark Background Elements */}
+      <div className="bridge-watermark"></div>
+      <img
+        src="/arnold-palmer.png"
+        alt="Arnold Palmer"
+        className="arnold-palmer"
+      />
+
       {/* Main Standings */}
       <div className="w-2/3 pr-4 overflow-auto overlay z-10">
         <h1 className="text-2xl font-bold mb-4 text-yellow-400">Steel Sons Standings</h1>
@@ -81,16 +89,9 @@ export default function SteelSonsLeaderboard() {
             ))}
           </ul>
         </div>
+
         <p className="text-xs mt-4 text-gray-300">Last updated: {lastUpdated}</p>
       </div>
-
-      {/* Watermark visuals */}
-      <div className="bridge-watermark"></div>
-      <img
-        src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Arnold_Palmer_%28silhouette%29.png"
-        alt="Arnold Palmer"
-        className="arnold-palmer"
-      />
     </div>
   );
 }
