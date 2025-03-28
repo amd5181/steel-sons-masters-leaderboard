@@ -27,9 +27,12 @@ export default function SteelSonsLeaderboard() {
       .then((text) => {
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
-        console.log("🔄 Full parsed CSV:", rows);
 
-        const newMain = rows.slice(0, 300);
+        // Log for debugging
+        console.log("🔄 Full parsed CSV:", rows);
+        if (!rows || rows.length < 3) return;
+
+        const newMain = rows.slice(1, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
 
