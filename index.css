@@ -6,15 +6,15 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #eaeaea; /* true light gray */
-  color: black;
+  background-color: #141414;
+  color: white;
   position: relative;
 }
 
 .bridge-watermark {
   background: url('/bridge.jpg') no-repeat center center;
   background-size: cover;
-  opacity: 0.12;
+  opacity: 0.2; /* boosted for better visibility */
   position: fixed;
   top: 0;
   left: 0;
@@ -28,7 +28,7 @@ body {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  opacity: 0.1;
+  opacity: 0.12;
   width: 120px;
   z-index: 2;
   pointer-events: none;
@@ -37,9 +37,8 @@ body {
 .overlay {
   position: relative;
   z-index: 10;
-  backdrop-filter: blur(6px);
-  background-color: rgba(255, 255, 255, 0.75); /* lighter card on light bg */
-  color: #111;
+  backdrop-filter: blur(3px);
+  background-color: rgba(0, 0, 0, 0.75);
   border-radius: 12px;
   padding: 1rem;
 }
