@@ -30,7 +30,7 @@ export default function SteelSonsLeaderboard() {
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
 
-        const newMain = rows.slice(2, 302); // skip row 0 and 1 (titles + header), get 300 rows of data
+        const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
 
@@ -77,12 +77,7 @@ export default function SteelSonsLeaderboard() {
   const headerStyle = "text-yellow-700 text-shadow-black";
 
   return (
-    <div className="flex flex-col min-h-screen p-4 relative z-0" style={{ fontFamily: 'Inter' }}>
-      <div className="absolute inset-0 z-0" style={{
-        background: 'radial-gradient(ellipse at center, rgba(0,0,0,0) 60%, rgba(0,0,0,0.6) 100%)',
-        pointerEvents: 'none'
-      }} />
-
+    <div className="flex flex-col min-h-screen p-4 relative" style={{ fontFamily: 'Inter' }}>
       <div className="text-center mb-4 z-10">
         <h1 className={`text-4xl font-extrabold drop-shadow-lg ${headerStyle}`}>2025 Steel Sons Masters Pool</h1>
         <p className="text-md italic text-gray-700 mt-1">"You can lead a horse to the stable, but you can't make him drink water from the bowl!"</p>
@@ -111,16 +106,16 @@ export default function SteelSonsLeaderboard() {
                 })}
               </tr>
               <tr>
-                {rows[1]?.slice(0, 12).map((cell, j) => (
+                {mainData[1]?.slice(0, 12).map((cell, j) => (
                   <th key={j} className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`}>{cell}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {mainData.map((row, i) => (
+              {mainData.slice(2).map((row, i) => (
                 <tr
                   key={i}
-                  className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 1) ? 'border-b border-black' : ''}`}
+                  className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 3) ? 'border-b border-black' : ''}`}
                 >
                   {row.slice(0, 12).map((cell, j) => (
                     <td
