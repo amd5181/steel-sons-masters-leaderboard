@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 @tailwind base;
@@ -13,7 +12,7 @@ body {
 }
 
 .bridge-watermark {
-  background: url('https://upload.wikimedia.org/wikipedia/commons/2/2d/Pittsburgh_Clemente_Bridge_from_PNC_Park_crop.jpg') no-repeat center center;
+  background: url('/bridge.jpg') no-repeat center center;
   background-size: contain;
   opacity: 0.04;
   position: absolute;
@@ -23,6 +22,7 @@ body {
   width: 100%;
   height: 100%;
   z-index: 0;
+  pointer-events: none;
 }
 
 .arnold-palmer {
@@ -32,6 +32,7 @@ body {
   opacity: 0.08;
   width: 120px;
   z-index: 0;
+  pointer-events: none;
 }
 
 .overlay {
