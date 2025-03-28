@@ -1,4 +1,4 @@
 // next.config.js
 module.exports = {
-  distDir: 'build',  // This sets the output directory to 'build'
+  distDir: '.next',  // Ensure Vercel looks for `.next` directory
 };
