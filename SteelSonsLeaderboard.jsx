@@ -6,8 +6,9 @@ export default function SteelSonsLeaderboard() {
   const [mastersData, setMastersData] = useState([]);
   const [summaryData, setSummaryData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
+  const [refreshCountdown, setRefreshCountdown] = useState(15);
 
-  useEffect(() => {
+  const fetchData = () => {
     fetch(
       "https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv"
     )
@@ -20,24 +21,23 @@ export default function SteelSonsLeaderboard() {
         setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 19)));
         setLastUpdated(new Date().toLocaleTimeString());
       });
-  }, []);
+  };
 
   useEffect(() => {
+    fetchData();
     const interval = setInterval(() => {
-      fetch(
-        "https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv"
-      )
-        .then((res) => res.text())
-        .then((text) => {
-          const parsed = Papa.parse(text, { header: false });
-          const rows = parsed.data;
-          setMainData(rows.slice(0, 300));
-          setSummaryData(rows.slice(1, 60).map((r) => r.slice(13, 16)));
-          setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 19)));
-          setLastUpdated(new Date().toLocaleTimeString());
-        });
-    }, 60000);
-    return () => clearInterval(interval);
+      fetchData();
+      setRefreshCountdown(15);
+    }, 15000);
+
+    const countdown = setInterval(() => {
+      setRefreshCountdown((prev) => (prev > 0 ? prev - 1 : 15));
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+      clearInterval(countdown);
+    };
   }, []);
 
   return (
@@ -46,7 +46,7 @@ export default function SteelSonsLeaderboard() {
       <div className="text-center mb-4 z-10">
         <h1 className="text-4xl font-extrabold text-yellow-600 drop-shadow-lg">2025 Steel Sons Masters Pool</h1>
         <p className="text-md italic text-gray-700 mt-1">"You can lead a horse to the stable, but you can't make him drink water from the bowl!"</p>
-        <p className="text-xs mt-2 text-gray-600">Last updated: {lastUpdated}</p>
+        <p className="text-xs mt-2 text-gray-600">Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s</p>
       </div>
 
       {/* Background visual elements */}
