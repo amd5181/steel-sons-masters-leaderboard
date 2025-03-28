@@ -30,24 +30,17 @@ export default function SteelSonsLeaderboard() {
 
   useEffect(() => {
     fetchData();
-
-    const intervalId = setInterval(() => {
-      fetchData();
-    }, 20000);
-
     let countdown = 20;
-    const countdownId = setInterval(() => {
+    const intervalId = setInterval(() => {
       countdown -= 1;
       if (countdown <= 0) {
+        fetchData();
         countdown = 20;
       }
       setRefreshCountdown(countdown);
     }, 1000);
 
-    return () => {
-      clearInterval(intervalId);
-      clearInterval(countdownId);
-    };
+    return () => clearInterval(intervalId);
   }, []);
 
   return (
