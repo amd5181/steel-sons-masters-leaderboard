@@ -9,9 +9,8 @@ export default function SteelSonsLeaderboard() {
   const [refreshCountdown, setRefreshCountdown] = useState(20);
 
   const fetchData = () => {
-    fetch(
-      "https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv"
-    )
+    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${Date.now()}`;
+    fetch(url)
       .then((res) => res.text())
       .then((text) => {
         const parsed = Papa.parse(text, { header: false });
