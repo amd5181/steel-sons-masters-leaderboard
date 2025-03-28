@@ -16,6 +16,11 @@ export default function SteelSonsLeaderboard() {
       .then((text) => {
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
+        console.log("🔄 Full parsed CSV:", rows);
+        console.log("📊 Main Data:", rows.slice(0, 300));
+        console.log("🏌️ Masters Leaderboard:", rows.slice(1, 12).map((r) => r.slice(17, 19)));
+        console.log("📋 Summary Leaderboard:", rows.slice(1, 60).map((r) => r.slice(13, 16)));
+
         setMainData(rows.slice(0, 300));
         setSummaryData(rows.slice(1, 60).map((r) => r.slice(13, 16)));
         setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 19)));
