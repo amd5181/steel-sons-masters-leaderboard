@@ -13,19 +13,22 @@ export default function SteelSonsLeaderboard() {
   const previousSummaryData = useRef([]);
 
   const fetchData = () => {
-    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${Date.now()}`;
+    const timestamp = Date.now();
+    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${timestamp}`;
 
     fetch(url, {
       cache: 'no-store',
       headers: {
-        'Cache-Control': 'no-cache'
+        'Cache-Control': 'no-cache',
+        Pragma: 'no-cache',
+        Expires: '0'
       }
     })
       .then((res) => res.text())
       .then((text) => {
+        console.log("📥 Fetch Timestamp:", timestamp);
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
-        console.log("🔄 Full parsed CSV:", rows);
 
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
@@ -34,19 +37,25 @@ export default function SteelSonsLeaderboard() {
         const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
         if (!isEqual(previousMainData.current, newMain)) {
+          console.log("✅ Main data changed");
           previousMainData.current = newMain;
           setMainData(newMain);
         }
         if (!isEqual(previousMastersData.current, newMasters)) {
+          console.log("✅ Masters data changed");
           previousMastersData.current = newMasters;
           setMastersData(newMasters);
         }
         if (!isEqual(previousSummaryData.current, newSummary)) {
+          console.log("✅ Summary data changed");
           previousSummaryData.current = newSummary;
           setSummaryData(newSummary);
         }
 
         setLastUpdated(new Date().toLocaleTimeString());
+      })
+      .catch((err) => {
+        console.error("❌ Fetch error:", err);
       });
   };
 
