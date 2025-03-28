@@ -43,9 +43,10 @@ export default function SteelSonsLeaderboard() {
   return (
     <div className="flex flex-col min-h-screen p-4 relative" style={{ fontFamily: 'Inter' }}>
       {/* Header */}
-      <div className="text-center mb-6 z-10">
+      <div className="text-center mb-4 z-10">
         <h1 className="text-4xl font-extrabold text-yellow-600 drop-shadow-lg">2025 Steel Sons Masters Pool</h1>
         <p className="text-md italic text-gray-700 mt-1">"You can lead a horse to the stable, but you can't make him drink water from the bowl!"</p>
+        <p className="text-xs mt-2 text-gray-600">Last updated: {lastUpdated}</p>
       </div>
 
       {/* Background visual elements */}
@@ -57,12 +58,18 @@ export default function SteelSonsLeaderboard() {
         {/* Main Standings */}
         <div className="w-2/3 overflow-auto overlay">
           <h2 className="text-2xl font-bold mb-4 text-yellow-700">Real-Time Standings</h2>
-          <table className="w-full text-sm">
+          <table className="w-full text-sm border border-black rounded-xl overflow-hidden">
             <tbody>
               {mainData.map((row, i) => (
-                <tr key={i} className="border-b border-gray-300 hover:bg-yellow-200/30">
+                <tr key={i} className="even:bg-white/20">
                   {row.slice(0, 12).map((cell, j) => (
-                    <td key={j} className="px-2 py-1 text-center border-r border-gray-300 last:border-r-0">{cell}</td>
+                    <td
+                      key={j}
+                      className="px-2 py-1 text-center border border-gray-400"
+                      style={{ fontWeight: i === 0 ? 'bold' : 'normal', backgroundColor: i === 0 ? '#f7f7f7' : 'transparent' }}
+                    >
+                      {cell}
+                    </td>
                   ))}
                 </tr>
               ))}
@@ -93,8 +100,6 @@ export default function SteelSonsLeaderboard() {
               ))}
             </ul>
           </div>
-
-          <p className="text-xs mt-4 text-gray-600 text-center">Last updated: {lastUpdated}</p>
         </div>
       </div>
     </div>
