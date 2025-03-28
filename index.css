@@ -40,9 +40,9 @@ body {
 .overlay {
   position: relative;
   z-index: 10;
-  backdrop-filter: blur(6px);
-  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  background-color: rgba(255, 255, 255, 0.5); /* more transparency */
   border-radius: 12px;
   padding: 1rem;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
