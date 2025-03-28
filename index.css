@@ -8,26 +8,37 @@
 body {
   font-family: 'Inter', sans-serif;
   background-color: #0c0c0c;
-  background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/66/Roberto_Clemente_Bridge_Pittsburgh.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
   color: white;
+  background-image: none;
+}
+
+.bridge-watermark {
+  background: url('https://upload.wikimedia.org/wikipedia/commons/2/2d/Pittsburgh_Clemente_Bridge_from_PNC_Park_crop.jpg') no-repeat center center;
+  background-size: contain;
+  opacity: 0.04;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.arnold-palmer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  opacity: 0.08;
+  width: 120px;
+  z-index: 0;
 }
 
 .overlay {
+  position: relative;
+  z-index: 10;
   backdrop-filter: blur(3px);
   background-color: rgba(0, 0, 0, 0.75);
   border-radius: 12px;
   padding: 1rem;
-}
-
-.arnold-watermark {
-  position: absolute;
-  bottom: 1rem;
-  right: 1rem;
-  opacity: 0.05;
-  width: 150px;
-  z-index: 0;
 }
