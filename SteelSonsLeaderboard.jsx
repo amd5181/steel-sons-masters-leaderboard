@@ -66,11 +66,13 @@ export default function SteelSonsLeaderboard() {
     return () => clearInterval(intervalId);
   }, []);
 
+  const headerStyle = "text-yellow-500 text-shadow-black";
+
   return (
     <div className="flex flex-col min-h-screen p-4 relative" style={{ fontFamily: 'Inter' }}>
       {/* Header */}
       <div className="text-center mb-4 z-10">
-        <h1 className="text-4xl font-extrabold text-yellow-600 drop-shadow-lg">2025 Steel Sons Masters Pool</h1>
+        <h1 className={`text-4xl font-extrabold drop-shadow-lg ${headerStyle}`}>2025 Steel Sons Masters Pool</h1>
         <p className="text-md italic text-gray-700 mt-1">"You can lead a horse to the stable, but you can't make him drink water from the bowl!"</p>
         <p className="text-xs mt-2 text-gray-600">Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s</p>
       </div>
@@ -83,7 +85,7 @@ export default function SteelSonsLeaderboard() {
       <div className="flex flex-1 gap-4">
         {/* Main Standings */}
         <div className="w-2/3 overflow-auto overlay">
-          <h2 className="text-2xl font-bold mb-4 text-yellow-700">Real-Time Standings</h2>
+          <h2 className={`text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
           <table className="w-full text-sm border border-black rounded-xl overflow-hidden">
             <thead>
               <tr>
@@ -101,7 +103,7 @@ export default function SteelSonsLeaderboard() {
                   {row.slice(0, 12).map((cell, j) => (
                     <td
                       key={j}
-                      className="px-2 py-1"
+                      className={`px-2 py-1 ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`}
                       style={{ borderBottom: 'none' }}
                     >
                       {cell}
@@ -117,7 +119,7 @@ export default function SteelSonsLeaderboard() {
         <div className="w-1/3 overlay rounded-2xl border border-black p-4">
           {/* Masters Leaderboard */}
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2 text-yellow-600">Masters Leaderboard</h2>
+            <h2 className={`text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
               <tbody>
                 {mastersData.map((row, i) => (
@@ -132,7 +134,7 @@ export default function SteelSonsLeaderboard() {
 
           {/* Summary Leaderboard */}
           <div>
-            <h2 className="text-xl font-semibold mb-2 text-yellow-600">Summary</h2>
+            <h2 className={`text-xl font-semibold mb-2 ${headerStyle}`}>Summary</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
               <tbody>
                 {summaryData.map((row, i) => (
