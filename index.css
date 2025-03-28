@@ -6,8 +6,8 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: #2b2b2b; /* lighter steel gray */
-  color: white;
+  background-color: #eaeaea; /* true light gray */
+  color: black;
   position: relative;
 }
 
@@ -28,7 +28,7 @@ body {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  opacity: 0.12;
+  opacity: 0.1;
   width: 120px;
   z-index: 2;
   pointer-events: none;
@@ -37,8 +37,9 @@ body {
 .overlay {
   position: relative;
   z-index: 10;
-  backdrop-filter: blur(3px);
-  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  background-color: rgba(255, 255, 255, 0.75); /* lighter card on light bg */
+  color: #111;
   border-radius: 12px;
   padding: 1rem;
 }
