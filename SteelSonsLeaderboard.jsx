@@ -4,8 +4,11 @@ import Papa from "papaparse";
 
 export default function SteelSonsLeaderboard() {
   const [mainData, setMainData] = useState([]);
+  const [lastUpdated, setLastUpdated] = useState(null);
   const [mastersData, setMastersData] = useState([]);
+  const [lastUpdated, setLastUpdated] = useState(null);
   const [summaryData, setSummaryData] = useState([]);
+  const [lastUpdated, setLastUpdated] = useState(null);
 
   useEffect(() => {
     fetch(
@@ -15,14 +18,32 @@ export default function SteelSonsLeaderboard() {
       .then((text) => {
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
-        setMainData(rows.slice(0, 300));
+        setMainData(rows.slice(0, 300)); setLastUpdated(new Date().toLocaleTimeString());
         setSummaryData(rows.slice(1, 60).map((r) => r.slice(13, 15)));
         setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 18)));
       });
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      fetch(
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv"
+      )
+        .then((res) => res.text())
+        .then((text) => {
+          const parsed = Papa.parse(text, { header: false });
+          const rows = parsed.data;
+          setMainData(rows.slice(0, 300));
+          setSummaryData(rows.slice(1, 60).map((r) => r.slice(13, 15)));
+          setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 18)));
+          setLastUpdated(new Date().toLocaleTimeString());
+        });
+    }, 60000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="flex min-h-screen bg-gray-950 text-white p-4">
+    <div className="flex min-h-screen p-4" style={{ fontFamily: 'Luckiest Guy', backgroundColor: '#0a572d' }}>
       {/* Main Standings */}
       <div className="w-2/3 pr-4 overflow-auto">
         <h1 className="text-2xl font-bold mb-4">Steel Sons Standings</h1>
@@ -66,7 +87,7 @@ export default function SteelSonsLeaderboard() {
             ))}
           </ul>
         </div>
-      </div>
+      <p className="text-xs mt-4">Last updated: {lastUpdated}</p></div>
     </div>
   );
 }
