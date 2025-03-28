@@ -31,7 +31,7 @@ export default function SteelSonsLeaderboard() {
 
         if (!rows || rows.length < 3) return;
 
-        const newMain = rows;
+        const newMain = rows.slice(1, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
 
@@ -90,7 +90,7 @@ export default function SteelSonsLeaderboard() {
             <table className="w-full text-sm border border-black rounded-xl overflow-hidden">
               <thead>
                 <tr>
-                  {mainData[1]?.slice(0, 12).map((_, j) => {
+                  {mainData[0]?.slice(0, 12).map((_, j) => {
                     if (j === 6) {
                       return <th key="completed-header" colSpan={4} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">Completed Rounds</th>;
                     }
@@ -101,13 +101,13 @@ export default function SteelSonsLeaderboard() {
                   })}
                 </tr>
                 <tr>
-                  {mainData[2]?.slice(0, 12).map((cell, j) => (
+                  {mainData[1]?.slice(0, 12).map((cell, j) => (
                     <th key={j} className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`}>{cell}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
-                {mainData.slice(3).map((row, i) => (
+                {mainData.slice(2).map((row, i) => (
                   <tr
                     key={i}
                     className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 4) ? 'border-b border-black' : ''}`}
