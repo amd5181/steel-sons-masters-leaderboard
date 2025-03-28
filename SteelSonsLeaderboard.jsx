@@ -16,8 +16,8 @@ export default function SteelSonsLeaderboard() {
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
         setMainData(rows.slice(0, 300));
-        setSummaryData(rows.slice(1, 60).map((r) => r.slice(13, 15)));
-        setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 18)));
+        setSummaryData(rows.slice(1, 60).map((r) => r.slice(13, 16)));
+        setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 19)));
         setLastUpdated(new Date().toLocaleTimeString());
       });
   }, []);
@@ -32,8 +32,8 @@ export default function SteelSonsLeaderboard() {
           const parsed = Papa.parse(text, { header: false });
           const rows = parsed.data;
           setMainData(rows.slice(0, 300));
-          setSummaryData(rows.slice(1, 60).map((r) => r.slice(13, 15)));
-          setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 18)));
+          setSummaryData(rows.slice(1, 60).map((r) => r.slice(13, 16)));
+          setMastersData(rows.slice(1, 12).map((r) => r.slice(17, 19)));
           setLastUpdated(new Date().toLocaleTimeString());
         });
     }, 60000);
@@ -59,14 +59,24 @@ export default function SteelSonsLeaderboard() {
         <div className="w-2/3 overflow-auto overlay">
           <h2 className="text-2xl font-bold mb-4 text-yellow-700">Real-Time Standings</h2>
           <table className="w-full text-sm border border-black rounded-xl overflow-hidden">
+            <thead>
+              <tr>
+                {mainData[1]?.slice(0, 12).map((cell, j) => (
+                  <th key={j} className="px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80">{cell}</th>
+                ))}
+              </tr>
+            </thead>
             <tbody>
-              {mainData.map((row, i) => (
-                <tr key={i} className="even:bg-white/20">
+              {mainData.slice(2).map((row, i) => (
+                <tr
+                  key={i}
+                  className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 3) ? 'border-b border-black' : ''}`}
+                >
                   {row.slice(0, 12).map((cell, j) => (
                     <td
                       key={j}
-                      className="px-2 py-1 text-center border border-gray-400"
-                      style={{ fontWeight: i === 0 ? 'bold' : 'normal', backgroundColor: i === 0 ? '#f7f7f7' : 'transparent' }}
+                      className="px-2 py-1"
+                      style={{ borderBottom: 'none' }}
                     >
                       {cell}
                     </td>
@@ -82,23 +92,32 @@ export default function SteelSonsLeaderboard() {
           {/* Masters Leaderboard */}
           <div className="mb-6">
             <h2 className="text-xl font-semibold mb-2 text-yellow-600">Masters Leaderboard</h2>
-            <ul className="bg-white/30 rounded-xl p-3 space-y-1 border border-black">
-              {mastersData.map((row, i) => (
-                <li key={i} className="text-sm border-b border-gray-400 pb-1 text-center">{row[0]}</li>
-              ))}
-            </ul>
+            <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
+              <tbody>
+                {mastersData.map((row, i) => (
+                  <tr key={i} className="text-center">
+                    <td className="px-2 py-1 border-b border-gray-400">{row[0]}</td>
+                    <td className="px-2 py-1 border-b border-gray-400">{row[1]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
 
           {/* Summary Leaderboard */}
           <div>
             <h2 className="text-xl font-semibold mb-2 text-yellow-600">Summary</h2>
-            <ul className="bg-white/30 rounded-xl p-3 space-y-1 border border-black">
-              {summaryData.map((row, i) => (
-                <li key={i} className="text-sm border-b border-gray-400 pb-1 text-center">
-                  {row[0]} — {row[1]}
-                </li>
-              ))}
-            </ul>
+            <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
+              <tbody>
+                {summaryData.map((row, i) => (
+                  <tr key={i} className="text-center">
+                    <td className="px-2 py-1 border-b border-gray-400">{row[0]}</td>
+                    <td className="px-2 py-1 border-b border-gray-400">{row[1]}</td>
+                    <td className="px-2 py-1 border-b border-gray-400">{row[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
