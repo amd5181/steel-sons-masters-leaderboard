@@ -67,7 +67,7 @@ export default function SteelSonsLeaderboard() {
         {/* Masters Leaderboard */}
         <div>
           <h2 className="text-xl font-semibold mb-2 text-yellow-600">Masters Leaderboard</h2>
-          <ul className="bg-white/80 rounded-xl p-3 space-y-1">
+          <ul className="bg-white/30 rounded-xl p-3 space-y-1">
             {mastersData.map((row, i) => (
               <li key={i} className="text-sm border-b border-gray-400 pb-1">{row[0]}</li>
             ))}
@@ -77,7 +77,7 @@ export default function SteelSonsLeaderboard() {
         {/* Summary Leaderboard */}
         <div>
           <h2 className="text-xl font-semibold mb-2 text-yellow-600">Summary</h2>
-          <ul className="bg-white/80 rounded-xl p-3 space-y-1">
+          <ul className="bg-white/30 rounded-xl p-3 space-y-1">
             {summaryData.map((row, i) => (
               <li key={i} className="text-sm border-b border-gray-400 pb-1">
                 {row[0]} — {row[1]}
