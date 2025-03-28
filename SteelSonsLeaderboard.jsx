@@ -13,22 +13,19 @@ export default function SteelSonsLeaderboard() {
   const previousSummaryData = useRef([]);
 
   const fetchData = () => {
-    const timestamp = Date.now();
-    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${timestamp}`;
+    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${Date.now()}`;
 
     fetch(url, {
       cache: 'no-store',
       headers: {
-        'Cache-Control': 'no-cache',
-        Pragma: 'no-cache',
-        Expires: '0'
+        'Cache-Control': 'no-cache'
       }
     })
       .then((res) => res.text())
       .then((text) => {
-        console.log("📥 Fetch Timestamp:", timestamp);
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
+        console.log("🔄 Full parsed CSV:", rows);
 
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
@@ -37,25 +34,19 @@ export default function SteelSonsLeaderboard() {
         const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
 
         if (!isEqual(previousMainData.current, newMain)) {
-          console.log("✅ Main data changed");
           previousMainData.current = newMain;
           setMainData(newMain);
         }
         if (!isEqual(previousMastersData.current, newMasters)) {
-          console.log("✅ Masters data changed");
           previousMastersData.current = newMasters;
           setMastersData(newMasters);
         }
         if (!isEqual(previousSummaryData.current, newSummary)) {
-          console.log("✅ Summary data changed");
           previousSummaryData.current = newSummary;
           setSummaryData(newSummary);
         }
 
         setLastUpdated(new Date().toLocaleTimeString());
-      })
-      .catch((err) => {
-        console.error("❌ Fetch error:", err);
       });
   };
 
@@ -84,25 +75,23 @@ export default function SteelSonsLeaderboard() {
         <p className="text-xs mt-2 text-gray-600">Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s</p>
       </div>
 
-      <div className="bridge-watermark z-0" />
-      <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer z-0" />
+      <div className="bridge-watermark"></div>
+      <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
-      <div className="flex flex-1 gap-4 z-10">
+      <div className="flex flex-1 gap-4">
         <div className="w-2/3 overflow-auto overlay">
           <h2 className={`text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
           <table className="w-full text-sm border border-black rounded-xl overflow-hidden">
             <thead>
               <tr>
-                {Array.from({ length: 12 }).map((_, j) => {
+                {mainData[1]?.slice(0, 12).map((_, j) => {
                   if (j === 6) {
                     return <th key="completed-header" colSpan={4} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">Completed Rounds</th>;
-                  } else if (j === 10) {
-                    return <th key="current-header" colSpan={2} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">Current Round</th>;
-                  } else if (j < 6) {
-                    return <th key={j} className="bg-white/80 border-b border-black"></th>;
-                  } else {
-                    return null;
                   }
+                  if (j === 10) {
+                    return <th key="current-header" colSpan={2} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">Current Round</th>;
+                  }
+                  return j < 6 ? <th key={j}></th> : null;
                 })}
               </tr>
               <tr>
