@@ -18,29 +18,12 @@ export default function SteelSonsLeaderboard() {
 
     fetch(url, {
       cache: 'no-store',  // Disable caching
-      headers: {
-        'Cache-Control': 'no-cache',  // Prevent caching
-        'Pragma': 'no-cache',
-        'Expires': '0'
-      }
     })
       .then((res) => res.text())
       .then((text) => {
-        // Debug: Log the raw CSV data
-        console.log("Raw CSV Data:", text);
-
         // Parse the CSV data
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
-
-        // Debug: Log the parsed data
-        console.log("Parsed CSV Data:", rows);
-
-        // Ensure rows have the expected data
-        if (!rows || rows.length < 3) {
-          console.error("CSV data is invalid or empty");
-          return;
-        }
 
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
