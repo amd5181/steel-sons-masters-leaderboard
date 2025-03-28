@@ -6,7 +6,7 @@
 
 body {
   font-family: 'Inter', sans-serif;
-  background-color: transparent;
+  background-color: #2b2b2b; /* lighter steel gray */
   color: white;
   position: relative;
 }
@@ -14,7 +14,7 @@ body {
 .bridge-watermark {
   background: url('/bridge.jpg') no-repeat center center;
   background-size: cover;
-  opacity: 0.1;
+  opacity: 0.12;
   position: fixed;
   top: 0;
   left: 0;
@@ -28,7 +28,7 @@ body {
   position: fixed;
   bottom: 1rem;
   right: 1rem;
-  opacity: 0.1;
+  opacity: 0.12;
   width: 120px;
   z-index: 2;
   pointer-events: none;
