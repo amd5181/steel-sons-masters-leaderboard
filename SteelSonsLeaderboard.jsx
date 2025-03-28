@@ -12,13 +12,14 @@ export default function SteelSonsLeaderboard() {
   const previousMastersData = useRef([]);
   const previousSummaryData = useRef([]);
 
+  // Function to fetch data
   const fetchData = () => {
     const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${Date.now()}`;
 
     fetch(url, {
-      cache: 'no-store',  // Disable browser cache for fresh data
+      cache: 'no-store',  // Disable caching
       headers: {
-        'Cache-Control': 'no-cache',  // Ensure data is not cached
+        'Cache-Control': 'no-cache',  // Prevent caching
         'Pragma': 'no-cache',
         'Expires': '0'
       }
@@ -27,7 +28,6 @@ export default function SteelSonsLeaderboard() {
       .then((text) => {
         const parsed = Papa.parse(text, { header: false });
         const rows = parsed.data;
-        console.log("🔄 Full parsed CSV:", rows);
 
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
@@ -88,7 +88,7 @@ export default function SteelSonsLeaderboard() {
             <table className="w-full text-sm border border-black rounded-xl overflow-hidden">
               <thead>
                 <tr>
-                  {mainData[0]?.slice(0, 12).map((_, j) => {
+                  {mainData[1]?.slice(0, 12).map((_, j) => {
                     if (j === 6) {
                       return <th key="completed-header" colSpan={4} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">Completed Rounds</th>;
                     }
