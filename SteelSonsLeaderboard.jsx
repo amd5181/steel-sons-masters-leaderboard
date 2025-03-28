@@ -19,8 +19,8 @@ export default function SteelSonsLeaderboard() {
       cache: 'reload',
       headers: {
         'Cache-Control': 'no-cache, no-store, must-revalidate',
-        'Pragma': 'no-cache',
-        'Expires': '0'
+        Pragma: 'no-cache',
+        Expires: '0'
       }
     })
       .then((res) => res.text())
@@ -29,7 +29,9 @@ export default function SteelSonsLeaderboard() {
         const rows = parsed.data;
         console.log("🔄 Full parsed CSV:", rows);
 
-        const newMain = rows.slice(0, 300);
+        if (!rows || rows.length < 3) return;
+
+        const newMain = rows;
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
 
@@ -98,16 +100,16 @@ export default function SteelSonsLeaderboard() {
                 })}
               </tr>
               <tr>
-                {mainData[1]?.slice(0, 12).map((cell, j) => (
+                {mainData[2]?.slice(0, 12).map((cell, j) => (
                   <th key={j} className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`}>{cell}</th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {mainData.slice(2).map((row, i) => (
+              {mainData.slice(3).map((row, i) => (
                 <tr
                   key={i}
-                  className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 3) ? 'border-b border-black' : ''}`}
+                  className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 4) ? 'border-b border-black' : ''}`}
                 >
                   {row.slice(0, 12).map((cell, j) => (
                     <td
