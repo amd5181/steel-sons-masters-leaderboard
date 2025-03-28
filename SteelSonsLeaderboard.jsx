@@ -13,14 +13,14 @@ export default function SteelSonsLeaderboard() {
   const previousSummaryData = useRef([]);
 
   const fetchData = () => {
-    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${Date.now()}&nocache=${Math.random()}`;
+    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${Date.now()}`;
 
     fetch(url, {
-      cache: 'reload',
+      cache: 'no-store',
       headers: {
-        'Cache-Control': 'no-cache, no-store, must-revalidate',
-        Pragma: 'no-cache',
-        Expires: '0'
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       }
     })
       .then((res) => res.text())
@@ -29,9 +29,7 @@ export default function SteelSonsLeaderboard() {
         const rows = parsed.data;
         console.log("🔄 Full parsed CSV:", rows);
 
-        if (!rows || rows.length < 3) return;
-
-        const newMain = rows.slice(1, 300);
+        const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
 
@@ -86,7 +84,7 @@ export default function SteelSonsLeaderboard() {
       <div className="flex flex-1 gap-4">
         <div className="w-2/3 overflow-auto overlay">
           <h2 className={`text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
-          {mainData.length > 2 && (
+          {mainData.length > 2 ? (
             <table className="w-full text-sm border border-black rounded-xl overflow-hidden">
               <thead>
                 <tr>
@@ -125,6 +123,8 @@ export default function SteelSonsLeaderboard() {
                 ))}
               </tbody>
             </table>
+          ) : (
+            <p>Loading Data...</p>
           )}
         </div>
 
