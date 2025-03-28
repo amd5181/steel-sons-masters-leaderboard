@@ -42,21 +42,18 @@ export default function SteelSonsLeaderboard() {
 
   return (
     <div className="flex min-h-screen p-4 relative" style={{ fontFamily: 'Inter' }}>
-      {/* Watermark Background Elements */}
+      {/* Background and watermark layers */}
       <div className="bridge-watermark"></div>
-      <img
-        src="/arnold-palmer.png"
-        alt="Arnold Palmer"
-        className="arnold-palmer"
-      />
+      <div className="page-bg"></div>
+      <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
       {/* Main Standings */}
       <div className="w-2/3 pr-4 overflow-auto overlay z-10">
-        <h1 className="text-2xl font-bold mb-4 text-yellow-400">Steel Sons Standings</h1>
+        <h1 className="text-2xl font-bold mb-4 text-yellow-700">Steel Sons Standings</h1>
         <table className="w-full text-sm">
           <tbody>
             {mainData.map((row, i) => (
-              <tr key={i} className="border-b border-gray-800 hover:bg-yellow-400/10">
+              <tr key={i} className="border-b border-gray-300 hover:bg-yellow-200/30">
                 {row.slice(0, 12).map((cell, j) => (
                   <td key={j} className="px-2 py-1">{cell}</td>
                 ))}
@@ -70,27 +67,27 @@ export default function SteelSonsLeaderboard() {
       <div className="w-1/3 space-y-8 overlay z-10">
         {/* Masters Leaderboard */}
         <div>
-          <h2 className="text-xl font-semibold mb-2 text-yellow-300">Masters Leaderboard</h2>
-          <ul className="bg-black/50 rounded-xl p-3 space-y-1">
+          <h2 className="text-xl font-semibold mb-2 text-yellow-600">Masters Leaderboard</h2>
+          <ul className="bg-white/80 rounded-xl p-3 space-y-1">
             {mastersData.map((row, i) => (
-              <li key={i} className="text-sm border-b border-gray-700 pb-1">{row[0]}</li>
+              <li key={i} className="text-sm border-b border-gray-400 pb-1">{row[0]}</li>
             ))}
           </ul>
         </div>
 
         {/* Summary Leaderboard */}
         <div>
-          <h2 className="text-xl font-semibold mb-2 text-yellow-300">Summary</h2>
-          <ul className="bg-black/50 rounded-xl p-3 space-y-1">
+          <h2 className="text-xl font-semibold mb-2 text-yellow-600">Summary</h2>
+          <ul className="bg-white/80 rounded-xl p-3 space-y-1">
             {summaryData.map((row, i) => (
-              <li key={i} className="text-sm border-b border-gray-700 pb-1">
+              <li key={i} className="text-sm border-b border-gray-400 pb-1">
                 {row[0]} — {row[1]}
               </li>
             ))}
           </ul>
         </div>
 
-        <p className="text-xs mt-4 text-gray-300">Last updated: {lastUpdated}</p>
+        <p className="text-xs mt-4 text-gray-600">Last updated: {lastUpdated}</p>
       </div>
     </div>
   );
