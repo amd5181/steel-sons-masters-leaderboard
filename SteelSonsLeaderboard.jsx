@@ -13,12 +13,14 @@ export default function SteelSonsLeaderboard() {
   const previousSummaryData = useRef([]);
 
   const fetchData = () => {
-    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${Date.now()}`;
+    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${Date.now()}&nocache=${Math.random()}`;
 
     fetch(url, {
-      cache: 'no-store',
+      cache: 'reload',
       headers: {
-        'Cache-Control': 'no-cache'
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0'
       }
     })
       .then((res) => res.text())
@@ -47,7 +49,8 @@ export default function SteelSonsLeaderboard() {
         }
 
         setLastUpdated(new Date().toLocaleTimeString());
-      });
+      })
+      .catch((error) => console.error("❌ Fetch error:", error));
   };
 
   useEffect(() => {
