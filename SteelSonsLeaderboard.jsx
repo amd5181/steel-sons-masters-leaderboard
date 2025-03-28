@@ -42,13 +42,12 @@ export default function SteelSonsLeaderboard() {
 
   return (
     <div className="flex min-h-screen p-4 relative" style={{ fontFamily: 'Inter' }}>
-      {/* Background and watermark layers */}
+      {/* Background visual elements */}
       <div className="bridge-watermark"></div>
-      <div className="page-bg"></div>
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
       {/* Main Standings */}
-      <div className="w-2/3 pr-4 overflow-auto overlay z-10">
+      <div className="w-2/3 pr-4 overflow-auto overlay">
         <h1 className="text-2xl font-bold mb-4 text-yellow-700">Steel Sons Standings</h1>
         <table className="w-full text-sm">
           <tbody>
@@ -64,7 +63,7 @@ export default function SteelSonsLeaderboard() {
       </div>
 
       {/* Right Pane */}
-      <div className="w-1/3 space-y-8 overlay z-10">
+      <div className="w-1/3 space-y-8 overlay">
         {/* Masters Leaderboard */}
         <div>
           <h2 className="text-xl font-semibold mb-2 text-yellow-600">Masters Leaderboard</h2>
