@@ -6,7 +6,7 @@ export default function SteelSonsLeaderboard() {
   const [mastersData, setMastersData] = useState([]);
   const [summaryData, setSummaryData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
-  const [refreshCountdown, setRefreshCountdown] = useState(15);
+  const [refreshCountdown, setRefreshCountdown] = useState(20);
 
   const fetchData = () => {
     fetch(
@@ -25,18 +25,23 @@ export default function SteelSonsLeaderboard() {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(() => {
-      fetchData();
-      setRefreshCountdown(15);
-    }, 15000);
 
-    const countdown = setInterval(() => {
-      setRefreshCountdown((prev) => (prev > 0 ? prev - 1 : 15));
+    const intervalId = setInterval(() => {
+      fetchData();
+    }, 20000);
+
+    let countdown = 20;
+    const countdownId = setInterval(() => {
+      countdown -= 1;
+      if (countdown <= 0) {
+        countdown = 20;
+      }
+      setRefreshCountdown(countdown);
     }, 1000);
 
     return () => {
-      clearInterval(interval);
-      clearInterval(countdown);
+      clearInterval(intervalId);
+      clearInterval(countdownId);
     };
   }, []);
 
