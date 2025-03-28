@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react"; 
 import Papa from "papaparse";
 
 export default function SteelSonsLeaderboard() {
