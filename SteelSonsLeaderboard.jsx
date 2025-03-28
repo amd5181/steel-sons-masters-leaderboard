@@ -41,52 +41,64 @@ export default function SteelSonsLeaderboard() {
   }, []);
 
   return (
-    <div className="flex min-h-screen p-4 relative" style={{ fontFamily: 'Inter' }}>
+    <div className="flex flex-col min-h-screen p-4 relative" style={{ fontFamily: 'Inter' }}>
+      {/* Header */}
+      <div className="text-center mb-6 z-10">
+        <h1 className="text-4xl font-extrabold text-yellow-600 drop-shadow-lg">2025 Steel Sons Masters Pool</h1>
+        <p className="text-md italic text-gray-700 mt-1">"You can lead a horse to the stable, but you can't make him drink water from the bowl!"</p>
+      </div>
+
       {/* Background visual elements */}
       <div className="bridge-watermark"></div>
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
-      {/* Main Standings */}
-      <div className="w-2/3 pr-4 overflow-auto overlay">
-        <h1 className="text-2xl font-bold mb-4 text-yellow-700">Steel Sons Standings</h1>
-        <table className="w-full text-sm">
-          <tbody>
-            {mainData.map((row, i) => (
-              <tr key={i} className="border-b border-gray-300 hover:bg-yellow-200/30">
-                {row.slice(0, 12).map((cell, j) => (
-                  <td key={j} className="px-2 py-1">{cell}</td>
-                ))}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Right Pane */}
-      <div className="w-1/3 space-y-8 overlay">
-        {/* Masters Leaderboard */}
-        <div>
-          <h2 className="text-xl font-semibold mb-2 text-yellow-600">Masters Leaderboard</h2>
-          <ul className="bg-white/30 rounded-xl p-3 space-y-1">
-            {mastersData.map((row, i) => (
-              <li key={i} className="text-sm border-b border-gray-400 pb-1">{row[0]}</li>
-            ))}
-          </ul>
+      {/* Main layout */}
+      <div className="flex flex-1 gap-4">
+        {/* Main Standings */}
+        <div className="w-2/3 overflow-auto overlay">
+          <h2 className="text-2xl font-bold mb-4 text-yellow-700">Real-Time Standings</h2>
+          <table className="w-full text-sm">
+            <tbody>
+              {mainData.map((row, i) => (
+                <tr key={i} className="border-b border-gray-300 hover:bg-yellow-200/30">
+                  {row.slice(0, 12).map((cell, j) => (
+                    <td key={j} className="px-2 py-1">{cell}</td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
 
-        {/* Summary Leaderboard */}
-        <div>
-          <h2 className="text-xl font-semibold mb-2 text-yellow-600">Summary</h2>
-          <ul className="bg-white/30 rounded-xl p-3 space-y-1">
-            {summaryData.map((row, i) => (
-              <li key={i} className="text-sm border-b border-gray-400 pb-1">
-                {row[0]} — {row[1]}
-              </li>
-            ))}
-          </ul>
-        </div>
+        {/* Right Pane */}
+        <div className="w-1/3 space-y-8 overlay flex flex-col justify-between rounded-2xl border border-black p-4">
+          {/* Masters Leaderboard */}
+          <div>
+            <h2 className="text-xl font-semibold mb-2 text-yellow-600">Masters Leaderboard</h2>
+            <ul className="bg-white/30 rounded-xl p-3 space-y-1">
+              {mastersData.map((row, i) => (
+                <li key={i} className="text-sm border-b border-gray-400 pb-1">{row[0]}</li>
+              ))}
+            </ul>
+          </div>
 
-        <p className="text-xs mt-4 text-gray-600">Last updated: {lastUpdated}</p>
+          {/* Divider */}
+          <div className="my-2 h-1 w-full bg-black rounded-full"></div>
+
+          {/* Summary Leaderboard */}
+          <div>
+            <h2 className="text-xl font-semibold mb-2 text-yellow-600">Summary</h2>
+            <ul className="bg-white/30 rounded-xl p-3 space-y-1">
+              {summaryData.map((row, i) => (
+                <li key={i} className="text-sm border-b border-gray-400 pb-1">
+                  {row[0]} — {row[1]}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <p className="text-xs mt-4 text-gray-600">Last updated: {lastUpdated}</p>
+        </div>
       </div>
     </div>
   );
