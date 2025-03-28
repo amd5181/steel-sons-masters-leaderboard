@@ -65,7 +65,7 @@ export default function SteelSonsLeaderboard() {
     return () => clearInterval(intervalId);
   }, []);
 
-  const headerStyle = "text-yellow-500 text-shadow-black";
+  const headerStyle = "text-yellow-700 text-shadow-black";
 
   return (
     <div className="flex flex-col min-h-screen p-4 relative" style={{ fontFamily: 'Inter' }}>
@@ -86,10 +86,10 @@ export default function SteelSonsLeaderboard() {
               <tr>
                 {mainData[1]?.slice(0, 12).map((_, j) => {
                   if (j === 6) {
-                    return <th key="completed-header" colSpan={4} className="text-center font-bold bg-white/80 border-b border-black">Completed Rounds</th>;
+                    return <th key="completed-header" colSpan={4} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">Completed Rounds</th>;
                   }
                   if (j === 10) {
-                    return <th key="current-header" colSpan={2} className="text-center font-bold bg-white/80 border-b border-black">Current Round</th>;
+                    return <th key="current-header" colSpan={2} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">Current Round</th>;
                   }
                   return j < 6 ? <th key={j}></th> : null;
                 })}
