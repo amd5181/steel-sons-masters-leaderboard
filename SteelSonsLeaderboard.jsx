@@ -62,7 +62,7 @@ export default function SteelSonsLeaderboard() {
               {mainData.map((row, i) => (
                 <tr key={i} className="border-b border-gray-300 hover:bg-yellow-200/30">
                   {row.slice(0, 12).map((cell, j) => (
-                    <td key={j} className="px-2 py-1">{cell}</td>
+                    <td key={j} className="px-2 py-1 text-center border-r border-gray-300 last:border-r-0">{cell}</td>
                   ))}
                 </tr>
               ))}
@@ -71,33 +71,30 @@ export default function SteelSonsLeaderboard() {
         </div>
 
         {/* Right Pane */}
-        <div className="w-1/3 space-y-8 overlay flex flex-col justify-between rounded-2xl border border-black p-4">
+        <div className="w-1/3 overlay rounded-2xl border border-black p-4">
           {/* Masters Leaderboard */}
-          <div>
+          <div className="mb-6">
             <h2 className="text-xl font-semibold mb-2 text-yellow-600">Masters Leaderboard</h2>
-            <ul className="bg-white/30 rounded-xl p-3 space-y-1">
+            <ul className="bg-white/30 rounded-xl p-3 space-y-1 border border-black">
               {mastersData.map((row, i) => (
-                <li key={i} className="text-sm border-b border-gray-400 pb-1">{row[0]}</li>
+                <li key={i} className="text-sm border-b border-gray-400 pb-1 text-center">{row[0]}</li>
               ))}
             </ul>
           </div>
 
-          {/* Divider */}
-          <div className="my-2 h-1 w-full bg-black rounded-full"></div>
-
           {/* Summary Leaderboard */}
           <div>
             <h2 className="text-xl font-semibold mb-2 text-yellow-600">Summary</h2>
-            <ul className="bg-white/30 rounded-xl p-3 space-y-1">
+            <ul className="bg-white/30 rounded-xl p-3 space-y-1 border border-black">
               {summaryData.map((row, i) => (
-                <li key={i} className="text-sm border-b border-gray-400 pb-1">
+                <li key={i} className="text-sm border-b border-gray-400 pb-1 text-center">
                   {row[0]} — {row[1]}
                 </li>
               ))}
             </ul>
           </div>
 
-          <p className="text-xs mt-4 text-gray-600">Last updated: {lastUpdated}</p>
+          <p className="text-xs mt-4 text-gray-600 text-center">Last updated: {lastUpdated}</p>
         </div>
       </div>
     </div>
