@@ -75,19 +75,22 @@ export default function SteelSonsLeaderboard() {
   const headerStyle = "text-yellow-700 text-shadow-black";
 
   return (
-    <div className="text-center mb-8 z-10">
-  <h1 className="text-4xl sm:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 text-transparent bg-clip-text drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] font-serif uppercase">
-    Steel Sons Masters Pool
-  </h1>
-  <div className="mt-1 h-1 w-40 bg-yellow-700 mx-auto rounded-full shadow-md"></div>
-  <p className="text-md sm:text-lg italic text-gray-700 mt-4 font-light tracking-wide">
-    "You can lead a horse to the stable, but you can't make him drink water from the bowl!"
-  </p>
-  <p className="text-xs mt-2 text-gray-600 tracking-tight">
-    Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s
-  </p>
-</div>
+    <div className="min-h-screen w-full bg-cover bg-center p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
+      {/* Fancy Header */}
+      <div className="text-center mb-8 z-10">
+        <h1 className="text-4xl sm:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 text-transparent bg-clip-text drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] font-serif uppercase">
+          Steel Sons Masters Pool
+        </h1>
+        <div className="mt-1 h-1 w-40 bg-yellow-700 mx-auto rounded-full shadow-md"></div>
+        <p className="text-md sm:text-lg italic text-gray-700 mt-4 font-light tracking-wide">
+          "You can lead a horse to the stable, but you can't make him drink water from the bowl!"
+        </p>
+        <p className="text-xs mt-2 text-gray-600 tracking-tight">
+          Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s
+        </p>
+      </div>
 
+      {/* Decorations */}
       <div className="bridge-watermark"></div>
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
