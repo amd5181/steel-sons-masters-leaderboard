@@ -28,7 +28,13 @@ export default function SteelSonsLeaderboard() {
       .then((text) => {
         console.log("📥 CSV response (preview):", text.slice(0, 200)); // TEMP debug
         const parsed = Papa.parse(text, { header: false });
+        console.log("Parsed data:", parsed);
         const rows = parsed.data;
+
+        if (!rows || rows.length === 0) {
+          console.warn("No rows found in CSV");
+          return;
+        }
 
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
@@ -54,7 +60,7 @@ export default function SteelSonsLeaderboard() {
       .catch((error) => {
         console.error("❌ Fetch error:", error);
       });
-  }; // <-- This closing brace properly ends the fetchData function
+  };
 
   useEffect(() => {
     fetchData(); // Initial data fetch on load
@@ -62,7 +68,7 @@ export default function SteelSonsLeaderboard() {
     const intervalId = setInterval(() => {
       countdown -= 1;
       if (countdown <= 0) {
-        fetchData();  // Fetch data every 20 seconds
+        fetchData(); // Fetch data every 20 seconds
         countdown = 20;
       }
       setRefreshCountdown(countdown);
@@ -76,7 +82,9 @@ export default function SteelSonsLeaderboard() {
   return (
     <div className="flex flex-col min-h-screen p-4 relative" style={{ fontFamily: "Inter" }}>
       <div className="text-center mb-4 z-10">
-        <h1 className={`text-4xl font-extrabold drop-shadow-lg ${headerStyle}`}>2025 Steel Sons Masters Pool</h1>
+        <h1 className={`text-4xl font-extrabold drop-shadow-lg ${headerStyle}`}>
+          2025 Steel Sons Masters Pool
+        </h1>
         <p className="text-md italic text-gray-700 mt-1">
           "You can lead a horse to the stable, but you can't make him drink water from the bowl!"
         </p>
@@ -98,14 +106,22 @@ export default function SteelSonsLeaderboard() {
                   {mainData[1]?.slice(0, 12).map((_, j) => {
                     if (j === 6) {
                       return (
-                        <th key="completed-header" colSpan={4} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">
+                        <th
+                          key="completed-header"
+                          colSpan={4}
+                          className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black"
+                        >
                           Completed Rounds
                         </th>
                       );
                     }
                     if (j === 10) {
                       return (
-                        <th key="current-header" colSpan={2} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">
+                        <th
+                          key="current-header"
+                          colSpan={2}
+                          className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black"
+                        >
                           Current Round
                         </th>
                       );
@@ -115,7 +131,12 @@ export default function SteelSonsLeaderboard() {
                 </tr>
                 <tr>
                   {mainData[1]?.slice(0, 12).map((cell, j) => (
-                    <th key={j} className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`}>
+                    <th
+                      key={j}
+                      className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${
+                        [4, 5, 9].includes(j) ? "border-r-2 border-black" : ""
+                      }`}
+                    >
                       {cell}
                     </th>
                   ))}
@@ -123,9 +144,18 @@ export default function SteelSonsLeaderboard() {
               </thead>
               <tbody>
                 {mainData.slice(2).map((row, i) => (
-                  <tr key={i} className={`text-center ${((i + 1) % 5 === 0 || i === mainData.length - 4) ? "border-b border-black" : ""}`}>
+                  <tr
+                    key={i}
+                    className={`text-center ${
+                      (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
+                    }`}
+                  >
                     {row.slice(0, 12).map((cell, j) => (
-                      <td key={j} className={`px-2 py-1 ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`} style={{ borderBottom: "none" }}>
+                      <td
+                        key={j}
+                        className={`px-2 py-1 ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`}
+                        style={{ borderBottom: "none" }}
+                      >
                         {cell}
                       </td>
                     ))}
