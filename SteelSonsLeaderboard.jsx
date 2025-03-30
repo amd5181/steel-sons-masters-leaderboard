@@ -49,3 +49,7 @@ export default function SteelSonsLeaderboard() {
       .catch((error) => {
         console.error("❌ Fetch error:", error);
       });
+  };
+
+  // You can also add useEffect here to auto-refresh every 20s if you want
+}
