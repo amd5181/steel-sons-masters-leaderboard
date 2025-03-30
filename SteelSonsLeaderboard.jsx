@@ -11,10 +11,12 @@ export default function SteelSonsLeaderboard() {
   const previousMastersData = useRef([]);
   const previousSummaryData = useRef([]);
 
-  // Replace these with your actual API key and Spreadsheet ID
+  // Replace these with your actual API key and Spreadsheet ID.
+  // Your API key is now inserted below.
   const API_KEY = "AIzaSyC-0Zrg5OARvAqSmyK8P8lkJqVCccGjrF4";
-  const SPREADSHEET_ID = "2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N";
-  const range = "Sheet1"; // Change if your data is in another sheet or a specific range
+  // Use your Spreadsheet ID (this should be the long ID found in the URL)
+  const SPREADSHEET_ID = "YOUR_SPREADSHEET_ID"; // <-- Replace with your actual Spreadsheet ID
+  const range = "Sheet1"; // Change if your data is in another sheet or range
 
   const fetchData = () => {
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}?key=${API_KEY}&cacheBust=${Math.random()}`;
@@ -31,12 +33,11 @@ export default function SteelSonsLeaderboard() {
           return;
         }
 
-        // Process the rows similarly to your CSV parsing
+        // Process the rows similar to your CSV parsing logic.
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
 
-        // Only update state if data has changed
         const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
         if (!isEqual(previousMainData.current, newMain)) {
           previousMainData.current = newMain;
