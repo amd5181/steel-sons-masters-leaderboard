@@ -86,9 +86,11 @@ export default function SteelSonsLeaderboard() {
   return (
     <div className="min-h-screen w-full p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/bridge.png)' }}>
       {/* Header section */}
-      <div className="relative text-center mb-8 p-6 border-b-4 border-yellow-700 shadow-xl bg-opacity-80 bg-white/80 rounded-xl">
+      <div className="relative text-center mb-8 p-6 border-b-4 border-yellow-700 shadow-xl bg-opacity-80 bg-white/70 rounded-xl">
+        <img src="/arnold-palmer.png" alt="Arnold Palmer" className="absolute left-4 top-4 w-12 sm:w-16" />
+        <img src="/arnold-palmer.png" alt="Arnold Palmer" className="absolute right-4 top-4 w-12 sm:w-16" />
         <h1 className="text-3xl sm:text-5xl font-extrabold tracking-wide text-yellow-600 drop-shadow-xl uppercase">
-          ⛳ Steel Sons Masters Pool 2025 ⛳
+          Steel Sons Masters Pool 2025
         </h1>
         <p className="text-sm sm:text-md italic mt-2 max-w-xl mx-auto">
           "You can lead a horse to the stable, but you can't make him drink water from the bowl!"
@@ -103,7 +105,7 @@ export default function SteelSonsLeaderboard() {
           {mainData.length > 2 ? (
             <div className="overflow-x-auto">
               <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
-                <thead className="sticky top-0 bg-white z-10">
+                <thead className="sticky top-0 bg-white/20 z-10">
                   <tr>
                     {mainData[1]?.slice(0, 12).map((_, j) => {
                       if (j === 6) return <th key={j} colSpan={4} className="text-center font-bold border-b border-black">Completed Rounds</th>;
@@ -113,7 +115,7 @@ export default function SteelSonsLeaderboard() {
                   </tr>
                   <tr>
                     {mainData[1]?.slice(0, 12).map((cell, j) => (
-                      <th key={j} className="px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap">
+                      <th key={j} className="px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap bg-transparent">
                         {cell}
                       </th>
                     ))}
