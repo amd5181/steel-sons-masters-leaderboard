@@ -86,7 +86,7 @@ export default function SteelSonsLeaderboard() {
   return (
     <div className="min-h-screen w-full p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/bridge.png)' }}>
       {/* Header section */}
-      <div className="relative flex flex-col items-center text-center mb-8 p-6 border-b-4 border-yellow-700 shadow-xl bg-white/30 rounded-xl">
+      <div className="relative flex flex-col items-center text-center mb-8 p-6 border-b-4 border-yellow-700 shadow-xl bg-transparent rounded-xl">
         <div className="flex items-center justify-center gap-4 mb-2">
           <img src="/arnold-palmer.png" alt="Arnold Palmer Left" className="w-10 sm:w-14" />
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-wide text-yellow-600 drop-shadow-xl uppercase">
@@ -105,9 +105,9 @@ export default function SteelSonsLeaderboard() {
         <div className="flex-1 min-w-0">
           <h2 className={`text-xl sm:text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
           {mainData.length > 2 ? (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
-                <thead className="sticky top-0 bg-white/10 backdrop-blur-sm z-10">
+            <div className="overflow-x-auto rounded-2xl border border-black bg-white/20">
+              <table className="w-full text-sm">
+                <thead className="sticky top-0 bg-transparent backdrop-blur-sm z-10">
                   <tr>
                     {mainData[1]?.slice(0, 12).map((_, j) => {
                       if (j === 6) return <th key={j} colSpan={4} className="text-center font-bold border-b border-black">Completed Rounds</th>;
