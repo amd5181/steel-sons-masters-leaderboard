@@ -6,6 +6,7 @@ export default function SteelSonsLeaderboard() {
   const [summaryData, setSummaryData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [refreshCountdown, setRefreshCountdown] = useState(20);
+  const [previousRanks, setPreviousRanks] = useState({});
 
   const previousMainData = useRef([]);
   const previousMastersData = useRef([]);
@@ -35,6 +36,14 @@ export default function SteelSonsLeaderboard() {
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
+
+        const newRanks = {};
+        for (let i = 2; i < newMain.length; i++) {
+          const place = newMain[i][0];
+          const manager = newMain[i][1];
+          if (place && manager) newRanks[manager] = place;
+        }
+        setPreviousRanks((prev) => ({ ...prev, ...newRanks }));
 
         const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
         if (!isEqual(previousMainData.current, newMain)) {
@@ -75,30 +84,28 @@ export default function SteelSonsLeaderboard() {
   const headerStyle = "text-yellow-700 text-shadow-black";
 
   return (
-    <div className="min-h-screen w-full bg-cover bg-center p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
-      <div className="text-center mb-4 z-10">
-        <h1 className={`text-2xl sm:text-4xl font-extrabold drop-shadow-lg ${headerStyle}`}>
-          2025 Steel Sons Masters Pool
-        </h1>
-        <p className="text-sm sm:text-md italic text-gray-700 mt-1">
+    <div className="min-h-screen w-full p-2 sm:p-4 font-inter bg-cover bg-fixed bg-center bg-no-repeat" style={{ backgroundImage: 'url(/bridge.png)' }}>
+      <div className="relative flex flex-col items-center text-center mb-8 p-6 border-b-4 border-yellow-700 shadow-xl bg-transparent rounded-xl">
+        <div className="flex items-center justify-center gap-4 mb-2">
+          <img src="/arnold-palmer.png" alt="Arnold Palmer Left" className="w-10 sm:w-14" />
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-wide text-yellow-600 drop-shadow-xl uppercase">
+            Steel Sons Masters Pool 2025
+          </h1>
+          <img src="/arnold-palmer.png" alt="Arnold Palmer Right" className="w-10 sm:w-14" />
+        </div>
+        <p className="text-sm sm:text-md italic max-w-xl mx-auto">
           "You can lead a horse to the stable, but you can't make him drink water from the bowl!"
         </p>
-        <p className="text-xs mt-2 text-gray-600">
-          Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s
-        </p>
+        <p className="text-xs mt-2">Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s</p>
       </div>
 
-      <div className="bridge-watermark"></div>
-      <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
-
       <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
-        {/* Real-Time Standings */}
         <div className="flex-1 min-w-0">
           <h2 className={`text-xl sm:text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
           {mainData.length > 2 ? (
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
-                <thead className="sticky top-0 bg-white z-10">
+            <div className="overflow-x-auto rounded-2xl border border-black">
+              <table className="w-full text-sm bg-white/30 rounded-2xl">
+                <thead className="sticky top-0 bg-transparent z-10">
                   <tr>
                     {mainData[1]?.slice(0, 12).map((_, j) => {
                       if (j === 6) {
@@ -122,7 +129,7 @@ export default function SteelSonsLeaderboard() {
                     {mainData[1]?.slice(0, 12).map((cell, j) => (
                       <th
                         key={j}
-                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`}
+                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap bg-transparent ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`}
                       >
                         {cell}
                       </th>
@@ -155,11 +162,10 @@ export default function SteelSonsLeaderboard() {
           )}
         </div>
 
-        {/* Right Panel */}
         <div className="flex flex-col w-full lg:max-w-sm space-y-6">
-          <div className="overlay rounded-2xl border border-black p-4">
+          <div className="rounded-2xl border border-black p-4 bg-white/30">
             <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
-            <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
+            <table className="w-full text-sm">
               <tbody>
                 {mastersData.map((row, i) => (
                   <tr key={i} className="text-center">
@@ -171,9 +177,9 @@ export default function SteelSonsLeaderboard() {
             </table>
           </div>
 
-          <div className="overlay rounded-2xl border border-black p-4">
+          <div className="rounded-2xl border border-black p-4 bg-white/30">
             <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Summary</h2>
-            <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
+            <table className="w-full text-sm">
               <tbody>
                 {summaryData.map((row, i) => (
                   <tr key={i} className="text-center">
