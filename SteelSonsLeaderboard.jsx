@@ -95,7 +95,7 @@ export default function SteelSonsLeaderboard() {
         </div>
 
         <p className="text-md sm:text-lg italic text-gray-700 mt-4 font-light tracking-wide">
-          "You can lead a horse to the stable, but you can't make him drink water from the bowl!"
+          "From Augusta National to the links at Manor Valley"
         </p>
 
         <p className="text-xs mt-2 text-gray-600 tracking-tight">
