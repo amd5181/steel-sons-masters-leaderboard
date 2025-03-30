@@ -90,7 +90,7 @@ export default function SteelSonsLeaderboard() {
           <img
             src="/ben.png"
             alt="Steel Beam"
-            className="h-5 sm:h-6 w-48 sm:w-72 object-contain drop-shadow-md animate-slide-in"
+    className="h-10 sm:h-14 w-64 sm:w-96 object-contain drop-shadow-md animate-slide-in"
           />
         </div>
 
