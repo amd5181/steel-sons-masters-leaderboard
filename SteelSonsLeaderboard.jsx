@@ -95,7 +95,7 @@ export default function SteelSonsLeaderboard() {
         </div>
 
         <p className="text-md sm:text-lg italic text-gray-700 mt-4 font-light tracking-wide">
-          "From Augusta National to the links at Manor Valley"
+          From Manor Valley to Augusta National
         </p>
 
         {/* Links: Signup + History */}
