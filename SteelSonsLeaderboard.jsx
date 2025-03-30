@@ -12,7 +12,7 @@ export default function SteelSonsLeaderboard() {
   const previousSummaryData = useRef([]);
 
   // Replace these with your actual API key and Spreadsheet ID
-  const API_KEY = "YOUR_API_KEY";
+  const API_KEY = "AIzaSyC-0Zrg5OARvAqSmyK8P8lkJqVCccGjrF4";
   const SPREADSHEET_ID = "2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N";
   const range = "Sheet1"; // Change if your data is in another sheet or a specific range
 
