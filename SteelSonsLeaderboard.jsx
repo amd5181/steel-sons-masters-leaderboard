@@ -14,7 +14,7 @@ export default function SteelSonsLeaderboard() {
 
   // Function to fetch data
   const fetchData = () => {
-    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&cacheBust=${Math.random()}`;
+    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?output=csv&cacheBust=${Math.random()}`;
 
     fetch(url, {
   cache: "no-store",
