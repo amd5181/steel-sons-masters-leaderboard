@@ -14,42 +14,27 @@ export default function SteelSonsLeaderboard() {
 
   // Function to fetch data
   const fetchData = () => {
-    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&t=${Date.now()}`;
+   const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&cacheBust=${Math.random()}`;
 
     fetch(url, {
-      cache: 'no-store',  // Disable caching
-    })
-      .then((res) => res.text())
-      .then((text) => {
-        // Parse the CSV data
-        const parsed = Papa.parse(text, { header: false });
-        const rows = parsed.data;
+  cache: "no-store",
+  headers: {
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+    "Pragma": "no-cache",
+    "Expires": "0"
+  }
+})
+  .then((res) => res.text())
+  .then((text) => {
+    console.log("📥 CSV response (preview):", text.slice(0, 200)); // TEMP debug
+    const parsed = Papa.parse(text, { header: false });
+    const rows = parsed.data;
 
-        const newMain = rows.slice(0, 300);
-        const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
-        const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
-
-        const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-
-        if (!isEqual(previousMainData.current, newMain)) {
-          previousMainData.current = newMain;
-          setMainData(newMain);
-        }
-        if (!isEqual(previousMastersData.current, newMasters)) {
-          previousMastersData.current = newMasters;
-          setMastersData(newMasters);
-        }
-        if (!isEqual(previousSummaryData.current, newSummary)) {
-          previousSummaryData.current = newSummary;
-          setSummaryData(newSummary);
-        }
-
-        setLastUpdated(new Date().toLocaleTimeString());
-      })
-      .catch((error) => {
-        console.error("❌ Fetch error:", error);
-      });
-  };
+    // your existing parsing logic continues here...
+  })
+  .catch((error) => {
+    console.error("❌ Fetch error:", error);
+  });
 
   useEffect(() => {
     fetchData(); // Initial data fetch on load
