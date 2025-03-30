@@ -90,13 +90,32 @@ export default function SteelSonsLeaderboard() {
           <img
             src="/ben.png"
             alt="Steel Beam"
-    className="h-12 sm:h-16 w-80 sm:w-[30rem] object-contain drop-shadow-md animate-slide-in"
+            className="h-12 sm:h-16 w-80 sm:w-[30rem] object-contain drop-shadow-md animate-slide-in"
           />
         </div>
 
         <p className="text-md sm:text-lg italic text-gray-700 mt-4 font-light tracking-wide">
           "From Augusta National to the links at Manor Valley"
         </p>
+
+        {/* Links: Signup + History */}
+        <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 mb-4">
+          <a
+            href="https://script.google.com/macros/s/AKfycbwcmZ-2kmbVfMwPH2gjLxb0hD_Pe3eQ9R_ti55B1JivfrV3eFLb2AfUpS-8cZgoroqzVg/exec"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-yellow-700 hover:bg-yellow-800 text-white font-semibold px-4 py-2 rounded-full shadow transition"
+          >
+            📝 Sign Up for the 2025 Pool
+          </a>
+
+          <a
+            href="/history"
+            className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-4 py-2 rounded-full shadow transition"
+          >
+            🏆 View Pool History
+          </a>
+        </div>
 
         <p className="text-xs mt-2 text-gray-600 tracking-tight">
           Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s
