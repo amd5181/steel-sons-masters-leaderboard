@@ -11,13 +11,16 @@ export default function SteelSonsLeaderboard() {
   const previousMastersData = useRef([]);
   const previousSummaryData = useRef([]);
 
-  // Your actual API key and Spreadsheet ID.
+  // Your API key and Spreadsheet ID
   const API_KEY = "AIzaSyC-0Zrg5OARvAqSmyK8P8lkJqVCccGjrF4";
   const SPREADSHEET_ID = "1wHB6gZhyRcGm8jy0w3ntt3cfgMjmX7QpVfP6RnWNhvY";
+  // Define the range in A1 notation. Here we include the sheet name.
   const range = "Standings!A1:AZ10000";
+  // URL encode the range so that special characters (like !) are properly encoded.
+  const encodedRange = encodeURIComponent(range);
 
   const fetchData = () => {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}?key=${API_KEY}&cacheBust=${Math.random()}`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodedRange}?key=${API_KEY}&cacheBust=${Math.random()}`;
 
     fetch(url, {
       cache: "no-store"
@@ -31,7 +34,7 @@ export default function SteelSonsLeaderboard() {
           return;
         }
 
-        // Process the rows similar to your CSV parsing logic.
+        // Process the rows similar to your previous logic.
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
@@ -118,9 +121,12 @@ export default function SteelSonsLeaderboard() {
                 </tr>
                 <tr>
                   {mainData[1]?.slice(0, 12).map((cell, j) => (
-                    <th key={j} className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${
-                      [4, 5, 9].includes(j) ? "border-r-2 border-black" : ""
-                    }`}>
+                    <th
+                      key={j}
+                      className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${
+                        [4, 5, 9].includes(j) ? "border-r-2 border-black" : ""
+                      }`}
+                    >
                       {cell}
                     </th>
                   ))}
@@ -132,7 +138,11 @@ export default function SteelSonsLeaderboard() {
                     (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
                   }`}>
                     {row.slice(0, 12).map((cell, j) => (
-                      <td key={j} className={`px-2 py-1 ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`} style={{ borderBottom: "none" }}>
+                      <td
+                        key={j}
+                        className={`px-2 py-1 ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`}
+                        style={{ borderBottom: "none" }}
+                      >
                         {cell}
                       </td>
                     ))}
