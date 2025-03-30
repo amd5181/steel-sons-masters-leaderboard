@@ -11,12 +11,10 @@ export default function SteelSonsLeaderboard() {
   const previousMastersData = useRef([]);
   const previousSummaryData = useRef([]);
 
-  // Your API key and Spreadsheet ID.
   const API_KEY = "AIzaSyC-0Zrg5OARvAqSmyK8P8lkJqVCccGjrF4";
   const SPREADSHEET_ID = "1wHB6gZhyRcGm8jy0w3ntt3cfgMjmX7QpVfP6RnWNhvY";
-  // Use a narrower range for testing.
-  const range = "Standings!A1:Z1000";
-  // URL encode the range
+  // Option A: A simpler range
+  const range = "Standings!A1:Z";
   const encodedRange = encodeURIComponent(range);
 
   const fetchData = () => {
@@ -27,7 +25,7 @@ export default function SteelSonsLeaderboard() {
       .then((data) => {
         console.log("📥 API response:", data);
         if (data.error) {
-          console.error("API returned an error:", data.error);
+          console.error("API returned an error:", data.error.message);
           return;
         }
         const rows = data.values;
@@ -36,7 +34,7 @@ export default function SteelSonsLeaderboard() {
           return;
         }
 
-        // Process the rows similar to your previous logic.
+        // Process the rows as needed.
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
@@ -63,12 +61,12 @@ export default function SteelSonsLeaderboard() {
   };
 
   useEffect(() => {
-    fetchData(); // Initial fetch on load
+    fetchData();
     let countdown = 20;
     const intervalId = setInterval(() => {
       countdown -= 1;
       if (countdown <= 0) {
-        fetchData(); // Fetch data every 20 seconds
+        fetchData();
         countdown = 20;
       }
       setRefreshCountdown(countdown);
