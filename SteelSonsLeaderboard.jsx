@@ -88,7 +88,7 @@ export default function SteelSonsLeaderboard() {
 
         <div className="flex justify-center mt-3">
           <img
-            src="/steelbeem.jpg"
+            src="/ben.png"
             alt="Steel Beam"
             className="h-5 sm:h-6 w-48 sm:w-72 object-contain drop-shadow-md animate-slide-in"
           />
