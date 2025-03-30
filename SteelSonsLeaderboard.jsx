@@ -81,10 +81,23 @@ export default function SteelSonsLeaderboard() {
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 text-transparent bg-clip-text drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] font-serif uppercase">
           Steel Sons Masters Pool
         </h1>
-        <div className="mt-1 h-1 w-40 bg-yellow-700 mx-auto rounded-full shadow-md"></div>
+
+        <h2 className="text-xl sm:text-2xl font-semibold tracking-wider mt-1 font-mono text-gray-700 uppercase [text-shadow:1px_1px_0_#bbb]">
+          2025
+        </h2>
+
+        <div className="flex justify-center mt-3">
+          <img
+            src="/steelbeem.jpg"
+            alt="Steel Beam"
+            className="h-5 sm:h-6 w-48 sm:w-72 object-contain drop-shadow-md animate-slide-in"
+          />
+        </div>
+
         <p className="text-md sm:text-lg italic text-gray-700 mt-4 font-light tracking-wide">
           "You can lead a horse to the stable, but you can't make him drink water from the bowl!"
         </p>
+
         <p className="text-xs mt-2 text-gray-600 tracking-tight">
           Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s
         </p>
