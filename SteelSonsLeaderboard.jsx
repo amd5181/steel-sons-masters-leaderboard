@@ -110,9 +110,9 @@ export default function SteelSonsLeaderboard() {
           </a>
 
           <a
-            href="/history"
-            className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-4 py-2 rounded-full shadow transition"
-          >
+            href="/history.html"
+  className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-4 py-2 rounded-full shadow transition"
+>
             🏆 View Pool History
           </a>
         </div>
