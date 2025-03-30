@@ -97,20 +97,28 @@ export default function SteelSonsLeaderboard() {
           <h2 className={`text-xl sm:text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
           {mainData.length > 2 ? (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
-                <thead className="sticky top-0 bg-white z-10">
+              <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden">
+                <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
                   <tr>
                     {mainData[1]?.slice(0, 12).map((_, j) => {
                       if (j === 6) {
                         return (
-                          <th key="completed-header" colSpan={4} className="text-center font-bold border-b border-black border-r-2 border-black">
+                          <th
+                            key="completed-header"
+                            colSpan={4}
+                            className="text-center font-bold border-b border-black border-r-2 border-black"
+                          >
                             Completed Rounds
                           </th>
                         );
                       }
                       if (j === 10) {
                         return (
-                          <th key="current-header" colSpan={2} className="text-center font-bold border-b border-black border-r-2 border-black">
+                          <th
+                            key="current-header"
+                            colSpan={2}
+                            className="text-center font-bold border-b border-black border-r-2 border-black"
+                          >
                             Current Round
                           </th>
                         );
@@ -122,7 +130,10 @@ export default function SteelSonsLeaderboard() {
                     {mainData[1]?.slice(0, 12).map((cell, j) => (
                       <th
                         key={j}
-                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`}
+                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
+                          ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}
+                          ${j === 0 ? "rounded-tl-xl" : ""}
+                          ${j === 11 ? "rounded-tr-xl" : ""}`}
                       >
                         {cell}
                       </th>
@@ -140,7 +151,10 @@ export default function SteelSonsLeaderboard() {
                       {row.slice(0, 12).map((cell, j) => (
                         <td
                           key={j}
-                          className={`px-2 py-1 whitespace-nowrap ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`}
+                          className={`px-2 py-1 whitespace-nowrap 
+                            ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}
+                            ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
+                            ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}`}
                         >
                           {cell}
                         </td>
