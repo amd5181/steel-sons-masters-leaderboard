@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import Papa from "papaparse";
 
 export default function SteelSonsLeaderboard() {
   const [mainData, setMainData] = useState([]);
@@ -12,36 +11,33 @@ export default function SteelSonsLeaderboard() {
   const previousMastersData = useRef([]);
   const previousSummaryData = useRef([]);
 
-  // Function to fetch data
+  // Replace these with your actual API key and Spreadsheet ID
+  const API_KEY = "YOUR_API_KEY";
+  const SPREADSHEET_ID = "2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N";
+  const range = "Sheet1"; // Change if your data is in another sheet or a specific range
+
   const fetchData = () => {
-    const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?output=csv&cacheBust=${Math.random()}`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}?key=${API_KEY}&cacheBust=${Math.random()}`;
 
     fetch(url, {
-  cache: "no-store",
-  headers: {
-    "Cache-Control": "no-cache, no-store, must-revalidate",
-    "Pragma": "no-cache"
-    // "Expires": "0"  <-- Remove this line
-  }
-})
-      .then((res) => res.text())
-      .then((text) => {
-        console.log("📥 CSV response (preview):", text.slice(0, 200)); // TEMP debug
-        const parsed = Papa.parse(text, { header: false });
-        console.log("Parsed data:", parsed);
-        const rows = parsed.data;
-
+      cache: "no-store"
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("📥 API response:", data);
+        const rows = data.values;
         if (!rows || rows.length === 0) {
-          console.warn("No rows found in CSV");
+          console.warn("No rows found in API response");
           return;
         }
 
+        // Process the rows similarly to your CSV parsing
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
 
+        // Only update state if data has changed
         const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
-
         if (!isEqual(previousMainData.current, newMain)) {
           previousMainData.current = newMain;
           setMainData(newMain);
@@ -63,7 +59,7 @@ export default function SteelSonsLeaderboard() {
   };
 
   useEffect(() => {
-    fetchData(); // Initial data fetch on load
+    fetchData(); // Initial fetch on load
     let countdown = 20;
     const intervalId = setInterval(() => {
       countdown -= 1;
@@ -106,22 +102,14 @@ export default function SteelSonsLeaderboard() {
                   {mainData[1]?.slice(0, 12).map((_, j) => {
                     if (j === 6) {
                       return (
-                        <th
-                          key="completed-header"
-                          colSpan={4}
-                          className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black"
-                        >
+                        <th key="completed-header" colSpan={4} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">
                           Completed Rounds
                         </th>
                       );
                     }
                     if (j === 10) {
                       return (
-                        <th
-                          key="current-header"
-                          colSpan={2}
-                          className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black"
-                        >
+                        <th key="current-header" colSpan={2} className="text-center font-bold bg-white/80 border-b border-black border-r-2 border-black">
                           Current Round
                         </th>
                       );
@@ -131,12 +119,9 @@ export default function SteelSonsLeaderboard() {
                 </tr>
                 <tr>
                   {mainData[1]?.slice(0, 12).map((cell, j) => (
-                    <th
-                      key={j}
-                      className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${
-                        [4, 5, 9].includes(j) ? "border-r-2 border-black" : ""
-                      }`}
-                    >
+                    <th key={j} className={`px-2 py-1 font-bold text-center border-b-4 border-black bg-white/80 ${
+                      [4, 5, 9].includes(j) ? "border-r-2 border-black" : ""
+                    }`}>
                       {cell}
                     </th>
                   ))}
@@ -144,18 +129,11 @@ export default function SteelSonsLeaderboard() {
               </thead>
               <tbody>
                 {mainData.slice(2).map((row, i) => (
-                  <tr
-                    key={i}
-                    className={`text-center ${
-                      (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
-                    }`}
-                  >
+                  <tr key={i} className={`text-center ${
+                    (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
+                  }`}>
                     {row.slice(0, 12).map((cell, j) => (
-                      <td
-                        key={j}
-                        className={`px-2 py-1 ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`}
-                        style={{ borderBottom: "none" }}
-                      >
+                      <td key={j} className={`px-2 py-1 ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`} style={{ borderBottom: "none" }}>
                         {cell}
                       </td>
                     ))}
