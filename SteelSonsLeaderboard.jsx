@@ -11,14 +11,15 @@ export default function SteelSonsLeaderboard() {
   const previousMastersData = useRef([]);
   const previousSummaryData = useRef([]);
 
+  // Your API key and Spreadsheet ID.
   const API_KEY = "AIzaSyC-0Zrg5OARvAqSmyK8P8lkJqVCccGjrF4";
   const SPREADSHEET_ID = "1wHB6gZhyRcGm8jy0w3ntt3cfgMjmX7QpVfP6RnWNhvY";
-  // Option A: A simpler range
-  const range = "Standings!A1:Z";
+  // Using a simpler range for testing.
+  const range = "Standings!A1:Z1000";
   const encodedRange = encodeURIComponent(range);
 
   const fetchData = () => {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodedRange}?key=${API_KEY}&cacheBust=${Math.random()}`;
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodedRange}?key=${API_KEY}`;
 
     fetch(url, { cache: "no-store" })
       .then((res) => res.json())
@@ -34,7 +35,7 @@ export default function SteelSonsLeaderboard() {
           return;
         }
 
-        // Process the rows as needed.
+        // Process the rows similarly to your previous logic.
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
@@ -61,12 +62,12 @@ export default function SteelSonsLeaderboard() {
   };
 
   useEffect(() => {
-    fetchData();
+    fetchData(); // Initial fetch on load
     let countdown = 20;
     const intervalId = setInterval(() => {
       countdown -= 1;
       if (countdown <= 0) {
-        fetchData();
+        fetchData(); // Fetch data every 20 seconds
         countdown = 20;
       }
       setRefreshCountdown(countdown);
