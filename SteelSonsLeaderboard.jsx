@@ -6,7 +6,6 @@ export default function SteelSonsLeaderboard() {
   const [summaryData, setSummaryData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [refreshCountdown, setRefreshCountdown] = useState(20);
-  const [previousRanks, setPreviousRanks] = useState({});
 
   const previousMainData = useRef([]);
   const previousMastersData = useRef([]);
@@ -18,7 +17,7 @@ export default function SteelSonsLeaderboard() {
   const encodedRange = encodeURIComponent(range);
 
   const fetchData = () => {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodedRange}?key=${API_KEY}`;
+    const url = https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodedRange}?key=${API_KEY};
 
     fetch(url, { cache: "no-store" })
       .then((res) => res.json())
@@ -36,14 +35,6 @@ export default function SteelSonsLeaderboard() {
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
         const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
-
-        const newRanks = {};
-        for (let i = 2; i < newMain.length; i++) {
-          const place = newMain[i][0];
-          const manager = newMain[i][1];
-          if (place && manager) newRanks[manager] = place;
-        }
-        setPreviousRanks((prev) => ({ ...prev, ...newRanks }));
 
         const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
         if (!isEqual(previousMainData.current, newMain)) {
@@ -84,9 +75,9 @@ export default function SteelSonsLeaderboard() {
   const headerStyle = "text-yellow-700 text-shadow-black";
 
   return (
-    <div className="min-h-screen w-full p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto bridge-watermark bg-cover bg-fixed bg-center bg-no-repeat">
+    <div className="min-h-screen w-full bg-cover bg-center p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
       <div className="text-center mb-4 z-10">
-        <h1 className={`text-2xl sm:text-4xl font-extrabold drop-shadow-lg ${headerStyle}`}>
+        <h1 className={text-2xl sm:text-4xl font-extrabold drop-shadow-lg ${headerStyle}}>
           2025 Steel Sons Masters Pool
         </h1>
         <p className="text-sm sm:text-md italic text-gray-700 mt-1">
@@ -97,11 +88,13 @@ export default function SteelSonsLeaderboard() {
         </p>
       </div>
 
+      <div className="bridge-watermark"></div>
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
       <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
+        {/* Real-Time Standings */}
         <div className="flex-1 min-w-0">
-          <h2 className={`text-xl sm:text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
+          <h2 className={text-xl sm:text-2xl font-bold mb-4 ${headerStyle}}>Real-Time Standings</h2>
           {mainData.length > 2 ? (
             <div className="overflow-x-auto">
               <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
@@ -129,7 +122,7 @@ export default function SteelSonsLeaderboard() {
                     {mainData[1]?.slice(0, 12).map((cell, j) => (
                       <th
                         key={j}
-                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`}
+                        className={px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}}
                       >
                         {cell}
                       </th>
@@ -140,14 +133,14 @@ export default function SteelSonsLeaderboard() {
                   {mainData.slice(2).map((row, i) => (
                     <tr
                       key={i}
-                      className={`text-center ${
+                      className={text-center ${
                         (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
-                      }`}
+                      }}
                     >
                       {row.slice(0, 12).map((cell, j) => (
                         <td
                           key={j}
-                          className={`px-2 py-1 whitespace-nowrap ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}`}
+                          className={px-2 py-1 whitespace-nowrap ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}}
                         >
                           {cell}
                         </td>
@@ -162,10 +155,11 @@ export default function SteelSonsLeaderboard() {
           )}
         </div>
 
+        {/* Right Panel */}
         <div className="flex flex-col w-full lg:max-w-sm space-y-6">
-          <div className="overlay rounded-2xl border border-black p-4 bg-white/30">
-            <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
-            <table className="w-full text-sm">
+          <div className="overlay rounded-2xl border border-black p-4">
+            <h2 className={text-lg sm:text-xl font-semibold mb-2 ${headerStyle}}>Masters Leaderboard</h2>
+            <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
               <tbody>
                 {mastersData.map((row, i) => (
                   <tr key={i} className="text-center">
@@ -177,9 +171,9 @@ export default function SteelSonsLeaderboard() {
             </table>
           </div>
 
-          <div className="overlay rounded-2xl border border-black p-4 bg-white/30">
-            <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Summary</h2>
-            <table className="w-full text-sm">
+          <div className="overlay rounded-2xl border border-black p-4">
+            <h2 className={text-lg sm:text-xl font-semibold mb-2 ${headerStyle}}>Summary</h2>
+            <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
               <tbody>
                 {summaryData.map((row, i) => (
                   <tr key={i} className="text-center">
