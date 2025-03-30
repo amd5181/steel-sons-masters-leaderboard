@@ -17,13 +17,13 @@ export default function SteelSonsLeaderboard() {
     const url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSYatcTXJ14AC6WIOeGrNtl09tcgxmklbEpiqZ4CVgNRxuDR4dGboKTEvC3T275C6W81ZFRaeo2Gc1N/pub?gid=1281963062&single=true&output=csv&cacheBust=${Math.random()}`;
 
     fetch(url, {
-      cache: "no-store",
-      headers: {
-        "Cache-Control": "no-cache, no-store, must-revalidate",
-        "Pragma": "no-cache",
-        "Expires": "0"
-      }
-    })
+  cache: "no-store",
+  headers: {
+    "Cache-Control": "no-cache, no-store, must-revalidate",
+    "Pragma": "no-cache"
+    // "Expires": "0"  <-- Remove this line
+  }
+})
       .then((res) => res.text())
       .then((text) => {
         console.log("📥 CSV response (preview):", text.slice(0, 200)); // TEMP debug
