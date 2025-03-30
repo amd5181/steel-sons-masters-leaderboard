@@ -1,45 +1,104 @@
-export default function PoolHistory() {
-  const history = [
-    { year: 2024, winners: ["Andy Albert", "Ian Very", "Matt Walker"] },
-    { year: 2023, winners: ["Andrew David", "Colin Scarola", "Justin Rosenthal"] },
-    { year: 2022, winners: ["Justin Blazel", "Rob Platz", "Andrew David"] },
-    { year: 2021, winners: ["Matt Cheyne", "Andrew David", "Sam Lanzino"] },
-    { year: 2020, winners: ["Alan McBride", "Matt Ward", "Sam Lanzino"] },
-    { year: 2019, winners: ["Carson Custer", "Mike Zalac", "Matt Ward"] },
-    { year: 2018, winners: ["Carson Custer", "Matt Hill", "Carson Custer"] },
-    { year: 2017, winners: ["Sam Lanzino", "Matt Hill", "Aaron Levine"] },
-    { year: 2016, winners: ["Dylan Frank", "Andrew David", "Curtis David"] },
-  ];
-
-  return (
-    <div className="min-h-screen w-full bg-cover bg-center p-4 font-inter max-w-screen-2xl mx-auto">
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-center bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 text-transparent bg-clip-text font-serif uppercase drop-shadow mb-6">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Steel Sons Pool History</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="/index.css" rel="stylesheet" />
+  </head>
+  <body class="bg-gray-100 font-inter p-4">
+    <div class="max-w-screen-2xl mx-auto min-h-screen">
+      <h1 class="text-4xl sm:text-5xl font-extrabold text-center bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 text-transparent bg-clip-text font-serif uppercase drop-shadow mb-8">
         Pool History
       </h1>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {history.map(({ year, winners }) => (
-          <div
-            key={year}
-            className="bg-white/30 backdrop-blur-md border border-black rounded-2xl p-4 shadow-md"
-          >
-            <h2 className="text-xl font-bold text-center text-yellow-800 mb-2">
-              {year}
-            </h2>
-            <ol className="space-y-1 text-center text-gray-800">
-              <li className="font-semibold">🥇 {winners[0]}</li>
-              <li>🥈 {winners[1]}</li>
-              <li>🥉 {winners[2]}</li>
-            </ol>
-          </div>
-        ))}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Repeat this block for each year -->
+        <div class="bg-white/30 backdrop-blur-md border border-black rounded-2xl p-4 shadow-md">
+          <h2 class="text-xl font-bold text-center text-yellow-800 mb-2">2024</h2>
+          <ol class="space-y-1 text-center text-gray-800">
+            <li class="font-semibold">🥇 Andy Albert</li>
+            <li>🥈 Ian Very</li>
+            <li>🥉 Matt Walker</li>
+          </ol>
+        </div>
+
+        <div class="bg-white/30 backdrop-blur-md border border-black rounded-2xl p-4 shadow-md">
+          <h2 class="text-xl font-bold text-center text-yellow-800 mb-2">2023</h2>
+          <ol class="space-y-1 text-center text-gray-800">
+            <li class="font-semibold">🥇 Andrew David</li>
+            <li>🥈 Colin Scarola</li>
+            <li>🥉 Justin Rosenthal</li>
+          </ol>
+        </div>
+
+        <div class="bg-white/30 backdrop-blur-md border border-black rounded-2xl p-4 shadow-md">
+          <h2 class="text-xl font-bold text-center text-yellow-800 mb-2">2022</h2>
+          <ol class="space-y-1 text-center text-gray-800">
+            <li class="font-semibold">🥇 Justin Blazel</li>
+            <li>🥈 Rob Platz</li>
+            <li>🥉 Andrew David</li>
+          </ol>
+        </div>
+
+        <div class="bg-white/30 backdrop-blur-md border border-black rounded-2xl p-4 shadow-md">
+          <h2 class="text-xl font-bold text-center text-yellow-800 mb-2">2021</h2>
+          <ol class="space-y-1 text-center text-gray-800">
+            <li class="font-semibold">🥇 Matt Cheyne</li>
+            <li>🥈 Andrew David</li>
+            <li>🥉 Sam Lanzino</li>
+          </ol>
+        </div>
+
+        <div class="bg-white/30 backdrop-blur-md border border-black rounded-2xl p-4 shadow-md">
+          <h2 class="text-xl font-bold text-center text-yellow-800 mb-2">2020</h2>
+          <ol class="space-y-1 text-center text-gray-800">
+            <li class="font-semibold">🥇 Alan McBride</li>
+            <li>🥈 Matt Ward</li>
+            <li>🥉 Sam Lanzino</li>
+          </ol>
+        </div>
+
+        <div class="bg-white/30 backdrop-blur-md border border-black rounded-2xl p-4 shadow-md">
+          <h2 class="text-xl font-bold text-center text-yellow-800 mb-2">2019</h2>
+          <ol class="space-y-1 text-center text-gray-800">
+            <li class="font-semibold">🥇 Carson Custer</li>
+            <li>🥈 Mike Zalac</li>
+            <li>🥉 Matt Ward</li>
+          </ol>
+        </div>
+
+        <div class="bg-white/30 backdrop-blur-md border border-black rounded-2xl p-4 shadow-md">
+          <h2 class="text-xl font-bold text-center text-yellow-800 mb-2">2018</h2>
+          <ol class="space-y-1 text-center text-gray-800">
+            <li class="font-semibold">🥇 Carson Custer</li>
+            <li>🥈 Matt Hill</li>
+            <li>🥉 Carson Custer</li>
+          </ol>
+        </div>
+
+        <div class="bg-white/30 backdrop-blur-md border border-black rounded-2xl p-4 shadow-md">
+          <h2 class="text-xl font-bold text-center text-yellow-800 mb-2">2017</h2>
+          <ol class="space-y-1 text-center text-gray-800">
+            <li class="font-semibold">🥇 Sam Lanzino</li>
+            <li>🥈 Matt Hill</li>
+            <li>🥉 Aaron Levine</li>
+          </ol>
+        </div>
+
+        <div class="bg-white/30 backdrop-blur-md border border-black rounded-2xl p-4 shadow-md">
+          <h2 class="text-xl font-bold text-center text-yellow-800 mb-2">2016</h2>
+          <ol class="space-y-1 text-center text-gray-800">
+            <li class="font-semibold">🥇 Dylan Frank</li>
+            <li>🥈 Andrew David</li>
+            <li>🥉 Curtis David</li>
+          </ol>
+        </div>
       </div>
 
-      <div className="mt-8 text-center">
-        <a href="/" className="text-sm text-yellow-700 hover:underline">
-          ← Back to Leaderboard
-        </a>
+      <div class="mt-10 text-center">
+        <a href="/" class="text-yellow-700 hover:underline text-sm">← Back to Leaderboard</a>
       </div>
     </div>
-  );
-}
+  </body>
+</html>
