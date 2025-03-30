@@ -6,7 +6,6 @@ export default function SteelSonsLeaderboard() {
   const [summaryData, setSummaryData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [refreshCountdown, setRefreshCountdown] = useState(20);
-  const [darkMode, setDarkMode] = useState(false);
   const [previousRanks, setPreviousRanks] = useState({});
 
   const previousMainData = useRef([]);
@@ -84,14 +83,10 @@ export default function SteelSonsLeaderboard() {
 
   const headerStyle = "text-yellow-700 text-shadow-black";
 
-  const containerClass = `min-h-screen w-full p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto transition-colors duration-500 ${
-    darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
-  }`;
-
   return (
-    <div className={containerClass}>
+    <div className="min-h-screen w-full p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto bg-cover bg-center bg-no-repeat" style={{ backgroundImage: 'url(/bridge.png)' }}>
       {/* Header section */}
-      <div className="relative text-center mb-8 p-6 border-b-4 border-yellow-700 shadow-xl bg-opacity-80">
+      <div className="relative text-center mb-8 p-6 border-b-4 border-yellow-700 shadow-xl bg-opacity-80 bg-white/80 rounded-xl">
         <h1 className="text-3xl sm:text-5xl font-extrabold tracking-wide text-yellow-600 drop-shadow-xl uppercase">
           ⛳ Steel Sons Masters Pool 2025 ⛳
         </h1>
@@ -99,12 +94,6 @@ export default function SteelSonsLeaderboard() {
           "You can lead a horse to the stable, but you can't make him drink water from the bowl!"
         </p>
         <p className="text-xs mt-2">Last updated: {lastUpdated} — Refreshing in {refreshCountdown}s</p>
-        <button
-          onClick={() => setDarkMode(!darkMode)}
-          className="absolute top-4 right-4 bg-yellow-600 hover:bg-yellow-700 text-white px-4 py-1 rounded shadow"
-        >
-          {darkMode ? "Light Mode" : "Dark Mode"}
-        </button>
       </div>
 
       {/* Main layout */}
@@ -137,7 +126,7 @@ export default function SteelSonsLeaderboard() {
                     const previousRank = parseInt(previousRanks[manager]);
                     const delta = previousRank && currentRank ? currentRank - previousRank : 0;
 
-                    const rowClass = `text-center transition-all duration-500 hover:bg-yellow-100/40 ${
+                    const rowClass = `text-center hover:bg-yellow-100/60 ${
                       delta < 0 ? "bg-green-100" : delta > 0 ? "bg-red-100" : ""
                     }`;
 
