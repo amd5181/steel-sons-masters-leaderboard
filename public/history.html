@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="/index.css" rel="stylesheet" />
 
-    <!-- 🅰️ Fancy Fonts -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -17,108 +17,181 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
-        background: linear-gradient(to bottom right, #1f2937, #111827);
+        background: url('/trophy-fade.png') no-repeat center center fixed,
+                    linear-gradient(to bottom right, #1f2937, #111827);
+        background-size: cover;
         color: white;
+        margin: 0;
+        padding: 1rem;
       }
 
       h1, h2 {
         font-family: 'Playfair Display', serif;
       }
+
+      .card {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid #facc15;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 16px rgba(255, 255, 0, 0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        opacity: 0;
+        animation: fade-in 1s ease forwards;
+      }
+
+      .card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 25px rgba(255, 255, 0, 0.4);
+      }
+
+      @keyframes fade-in {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.5rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .back-link {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .back-link a {
+        color: #facc15;
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      .back-link a:hover {
+        text-decoration: underline;
+      }
+
+      .header {
+        font-size: 2.5rem;
+        text-align: center;
+        background: linear-gradient(to right, #facc15, #fde68a, #facc15);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-transform: uppercase;
+        margin-bottom: 2.5rem;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+      }
+
+      ol {
+        text-align: center;
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      ol li {
+        margin-bottom: 0.5rem;
+      }
     </style>
   </head>
 
-  <body class="p-4">
-    <div class="max-w-screen-2xl mx-auto min-h-screen">
-      <h1 class="text-4xl sm:text-5xl font-extrabold text-center bg-gradient-to-r from-yellow-400 via-yellow-300 to-yellow-400 text-transparent bg-clip-text uppercase drop-shadow mb-10">
-        Hall of Champions
-      </h1>
+  <body>
+    <div class="back-link">
+      <a href="/">← Back to Leaderboard</a>
+    </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <!-- Repeat block per year -->
-        <div class="bg-white/10 border border-yellow-500 rounded-2xl p-6 shadow-lg backdrop-blur-md hover:scale-105 transition-transform duration-300">
-          <h2 class="text-2xl font-bold text-yellow-300 text-center mb-3 tracking-wide drop-shadow">2024</h2>
-          <ol class="space-y-2 text-center">
-            <li class="font-semibold text-white">🥇 Andy Albert</li>
-            <li class="text-gray-300">🥈 Ian Very</li>
-            <li class="text-gray-400">🥉 Matt Walker</li>
-          </ol>
-        </div>
+    <h1 class="header">Hall of Champions</h1>
 
-        <div class="bg-white/10 border border-yellow-500 rounded-2xl p-6 shadow-lg backdrop-blur-md hover:scale-105 transition-transform duration-300">
-          <h2 class="text-2xl font-bold text-yellow-300 text-center mb-3 tracking-wide drop-shadow">2023</h2>
-          <ol class="space-y-2 text-center">
-            <li class="font-semibold text-white">🥇 Andrew David</li>
-            <li class="text-gray-300">🥈 Colin Scarola</li>
-            <li class="text-gray-400">🥉 Justin Rosenthal</li>
-          </ol>
-        </div>
-
-        <div class="bg-white/10 border border-yellow-500 rounded-2xl p-6 shadow-lg backdrop-blur-md hover:scale-105 transition-transform duration-300">
-          <h2 class="text-2xl font-bold text-yellow-300 text-center mb-3 tracking-wide drop-shadow">2022</h2>
-          <ol class="space-y-2 text-center">
-            <li class="font-semibold text-white">🥇 Justin Blazel</li>
-            <li class="text-gray-300">🥈 Rob Platz</li>
-            <li class="text-gray-400">🥉 Andrew David</li>
-          </ol>
-        </div>
-
-        <div class="bg-white/10 border border-yellow-500 rounded-2xl p-6 shadow-lg backdrop-blur-md hover:scale-105 transition-transform duration-300">
-          <h2 class="text-2xl font-bold text-yellow-300 text-center mb-3 tracking-wide drop-shadow">2021</h2>
-          <ol class="space-y-2 text-center">
-            <li class="font-semibold text-white">🥇 Matt Cheyne</li>
-            <li class="text-gray-300">🥈 Andrew David</li>
-            <li class="text-gray-400">🥉 Sam Lanzino</li>
-          </ol>
-        </div>
-
-        <div class="bg-white/10 border border-yellow-500 rounded-2xl p-6 shadow-lg backdrop-blur-md hover:scale-105 transition-transform duration-300">
-          <h2 class="text-2xl font-bold text-yellow-300 text-center mb-3 tracking-wide drop-shadow">2020</h2>
-          <ol class="space-y-2 text-center">
-            <li class="font-semibold text-white">🥇 Alan McBride</li>
-            <li class="text-gray-300">🥈 Matt Ward</li>
-            <li class="text-gray-400">🥉 Sam Lanzino</li>
-          </ol>
-        </div>
-
-        <div class="bg-white/10 border border-yellow-500 rounded-2xl p-6 shadow-lg backdrop-blur-md hover:scale-105 transition-transform duration-300">
-          <h2 class="text-2xl font-bold text-yellow-300 text-center mb-3 tracking-wide drop-shadow">2019</h2>
-          <ol class="space-y-2 text-center">
-            <li class="font-semibold text-white">🥇 Carson Custer</li>
-            <li class="text-gray-300">🥈 Mike Zalac</li>
-            <li class="text-gray-400">🥉 Matt Ward</li>
-          </ol>
-        </div>
-
-        <div class="bg-white/10 border border-yellow-500 rounded-2xl p-6 shadow-lg backdrop-blur-md hover:scale-105 transition-transform duration-300">
-          <h2 class="text-2xl font-bold text-yellow-300 text-center mb-3 tracking-wide drop-shadow">2018</h2>
-          <ol class="space-y-2 text-center">
-            <li class="font-semibold text-white">🥇 Carson Custer</li>
-            <li class="text-gray-300">🥈 Matt Hill</li>
-            <li class="text-gray-400">🥉 Carson Custer</li>
-          </ol>
-        </div>
-
-        <div class="bg-white/10 border border-yellow-500 rounded-2xl p-6 shadow-lg backdrop-blur-md hover:scale-105 transition-transform duration-300">
-          <h2 class="text-2xl font-bold text-yellow-300 text-center mb-3 tracking-wide drop-shadow">2017</h2>
-          <ol class="space-y-2 text-center">
-            <li class="font-semibold text-white">🥇 Sam Lanzino</li>
-            <li class="text-gray-300">🥈 Matt Hill</li>
-            <li class="text-gray-400">🥉 Aaron Levine</li>
-          </ol>
-        </div>
-
-        <div class="bg-white/10 border border-yellow-500 rounded-2xl p-6 shadow-lg backdrop-blur-md hover:scale-105 transition-transform duration-300">
-          <h2 class="text-2xl font-bold text-yellow-300 text-center mb-3 tracking-wide drop-shadow">2016</h2>
-          <ol class="space-y-2 text-center">
-            <li class="font-semibold text-white">🥇 Dylan Frank</li>
-            <li class="text-gray-300">🥈 Andrew David</li>
-            <li class="text-gray-400">🥉 Curtis David</li>
-          </ol>
-        </div>
+    <div class="grid">
+      <!-- Example card: repeat this for each year -->
+      <div class="card">
+        <h2 class="text-yellow-300 text-center mb-3">2024</h2>
+        <ol>
+          <li>🥇 Andy Albert</li>
+          <li>🥈 Ian Very</li>
+          <li>🥉 Matt Walker</li>
+        </ol>
       </div>
 
-      <div class="mt-12 text-center">
-        <a href="/" class="text-yellow-400 hover:underline text-sm">← Back to Leaderboard</a>
+      <div class="card">
+        <h2 class="text-yellow-300 text-center mb-3">2023</h2>
+        <ol>
+          <li>🥇 Andrew David</li>
+          <li>🥈 Colin Scarola</li>
+          <li>🥉 Justin Rosenthal</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2 class="text-yellow-300 text-center mb-3">2022</h2>
+        <ol>
+          <li>🥇 Justin Blazel</li>
+          <li>🥈 Rob Platz</li>
+          <li>🥉 Andrew David</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2 class="text-yellow-300 text-center mb-3">2021</h2>
+        <ol>
+          <li>🥇 Matt Cheyne</li>
+          <li>🥈 Andrew David</li>
+          <li>🥉 Sam Lanzino</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2 class="text-yellow-300 text-center mb-3">2020</h2>
+        <ol>
+          <li>🥇 Alan McBride</li>
+          <li>🥈 Matt Ward</li>
+          <li>🥉 Sam Lanzino</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2 class="text-yellow-300 text-center mb-3">2019</h2>
+        <ol>
+          <li>🥇 Carson Custer</li>
+          <li>🥈 Mike Zalac</li>
+          <li>🥉 Matt Ward</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2 class="text-yellow-300 text-center mb-3">2018</h2>
+        <ol>
+          <li>🥇 Carson Custer</li>
+          <li>🥈 Matt Hill</li>
+          <li>🥉 Carson Custer</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2 class="text-yellow-300 text-center mb-3">2017</h2>
+        <ol>
+          <li>🥇 Sam Lanzino</li>
+          <li>🥈 Matt Hill</li>
+          <li>🥉 Aaron Levine</li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <h2 class="text-yellow-300 text-center mb-3">2016</h2>
+        <ol>
+          <li>🥇 Dylan Frank</li>
+          <li>🥈 Andrew David</li>
+          <li>🥉 Curtis David</li>
+        </ol>
       </div>
     </div>
   </body>
