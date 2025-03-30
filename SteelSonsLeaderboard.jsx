@@ -32,9 +32,11 @@ export default function SteelSonsLeaderboard() {
 
     // your existing parsing logic continues here...
   })
-  .catch((error) => {
+    .catch((error) => {
     console.error("❌ Fetch error:", error);
   });
+}; // ✅ closes fetchData()
+
 
   useEffect(() => {
     fetchData(); // Initial data fetch on load
