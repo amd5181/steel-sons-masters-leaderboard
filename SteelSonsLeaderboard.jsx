@@ -11,12 +11,10 @@ export default function SteelSonsLeaderboard() {
   const previousMastersData = useRef([]);
   const previousSummaryData = useRef([]);
 
-  // Replace these with your actual API key and Spreadsheet ID.
-  // Your API key is now inserted below.
+  // Your actual API key and Spreadsheet ID.
   const API_KEY = "AIzaSyC-0Zrg5OARvAqSmyK8P8lkJqVCccGjrF4";
-  // Use your Spreadsheet ID (this should be the long ID found in the URL)
-  const SPREADSHEET_ID = "YOUR_SPREADSHEET_ID"; // <-- Replace with your actual Spreadsheet ID
-  const range = "Sheet1"; // Change if your data is in another sheet or range
+  const SPREADSHEET_ID = "1wHB6gZhyRcGm8jy0w3ntt3cfgMjmX7QpVfP6RnWNhvY";
+  const range = "Standings"; // Use your sheet name here
 
   const fetchData = () => {
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}?key=${API_KEY}&cacheBust=${Math.random()}`;
