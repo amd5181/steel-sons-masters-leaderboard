@@ -1,5 +1,4 @@
 import { useEffect, useState, useRef } from "react";
-import classNames from "classnames";
 
 export default function SteelSonsLeaderboard() {
   const [mainData, setMainData] = useState([]);
@@ -85,11 +84,12 @@ export default function SteelSonsLeaderboard() {
 
   const headerStyle = "text-yellow-700 text-shadow-black";
 
+  const containerClass = `min-h-screen w-full p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto transition-colors duration-500 ${
+    darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-black"
+  }`;
+
   return (
-    <div className={classNames("min-h-screen w-full p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto transition-colors duration-500", {
-      "bg-gray-900 text-white": darkMode,
-      "bg-gray-100 text-black": !darkMode
-    })}>
+    <div className={containerClass}>
       {/* Header section */}
       <div className="relative text-center mb-8 p-6 border-b-4 border-yellow-700 shadow-xl bg-opacity-80">
         <h1 className="text-3xl sm:text-5xl font-extrabold tracking-wide text-yellow-600 drop-shadow-xl uppercase">
@@ -137,17 +137,12 @@ export default function SteelSonsLeaderboard() {
                     const previousRank = parseInt(previousRanks[manager]);
                     const delta = previousRank && currentRank ? currentRank - previousRank : 0;
 
+                    const rowClass = `text-center transition-all duration-500 hover:bg-yellow-100/40 ${
+                      delta < 0 ? "bg-green-100" : delta > 0 ? "bg-red-100" : ""
+                    }`;
+
                     return (
-                      <tr
-                        key={i}
-                        className={classNames(
-                          "text-center transition-all duration-500 hover:bg-yellow-100/40",
-                          {
-                            "bg-green-100": delta < 0,
-                            "bg-red-100": delta > 0,
-                          }
-                        )}
-                      >
+                      <tr key={i} className={rowClass}>
                         {row.slice(0, 12).map((cell, j) => (
                           <td key={j} className="px-2 py-1 whitespace-nowrap border-b border-gray-300">
                             {cell}
