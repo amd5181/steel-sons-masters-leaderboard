@@ -14,7 +14,7 @@ export default function SteelSonsLeaderboard() {
   // Your actual API key and Spreadsheet ID.
   const API_KEY = "AIzaSyC-0Zrg5OARvAqSmyK8P8lkJqVCccGjrF4";
   const SPREADSHEET_ID = "1wHB6gZhyRcGm8jy0w3ntt3cfgMjmX7QpVfP6RnWNhvY";
-  const range = "Standings"; // Use your sheet name here
+  const range = "Standings!A1:Z";
 
   const fetchData = () => {
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${range}?key=${API_KEY}&cacheBust=${Math.random()}`;
