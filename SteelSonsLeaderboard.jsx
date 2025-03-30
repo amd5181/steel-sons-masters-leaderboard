@@ -104,7 +104,7 @@ export default function SteelSonsLeaderboard() {
           <h2 className={`text-xl sm:text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
           {mainData.length > 2 ? (
             <div className="overflow-x-auto rounded-2xl border border-black">
-              <table className="w-full text-sm bg-white/30 rounded-2xl">
+              <table className="w-full text-sm bg-white/10 rounded-2xl">
                 <thead className="sticky top-0 bg-transparent z-10">
                   <tr>
                     {mainData[1]?.slice(0, 12).map((_, j) => {
@@ -163,7 +163,7 @@ export default function SteelSonsLeaderboard() {
         </div>
 
         <div className="flex flex-col w-full lg:max-w-sm space-y-6">
-          <div className="rounded-2xl border border-black p-4 bg-white/30">
+          <div className="rounded-2xl border border-black p-4 bg-white/10">
             <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
             <table className="w-full text-sm">
               <tbody>
@@ -177,7 +177,7 @@ export default function SteelSonsLeaderboard() {
             </table>
           </div>
 
-          <div className="rounded-2xl border border-black p-4 bg-white/30">
+          <div className="rounded-2xl border border-black p-4 bg-white/10">
             <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Summary</h2>
             <table className="w-full text-sm">
               <tbody>
