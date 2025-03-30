@@ -128,7 +128,7 @@ export default function SteelSonsLeaderboard() {
 
       <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
         {/* Real-Time Standings */}
-        <div className="flex-1 min-w-0">
+<div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg">
           <h2 className={`text-xl sm:text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
           {mainData.length > 2 ? (
             <div className="overflow-x-auto">
