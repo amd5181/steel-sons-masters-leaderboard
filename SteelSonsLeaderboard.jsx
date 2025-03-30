@@ -105,7 +105,7 @@ export default function SteelSonsLeaderboard() {
           {mainData.length > 2 ? (
             <div className="overflow-x-auto rounded-2xl border border-black">
               <table className="w-full text-sm bg-white/20 rounded-2xl">
-                <thead className="sticky top-0 bg-white/10 backdrop-blur-sm z-10">
+                <thead className="sticky top-0 bg-transparent backdrop-blur-sm z-10">
                   <tr>
                     {mainData[1]?.slice(0, 12).map((_, j) => {
                       if (j === 6) return <th key={j} colSpan={4} className="text-center font-bold border-b border-black border-r-2">Completed Rounds</th>;
@@ -117,7 +117,7 @@ export default function SteelSonsLeaderboard() {
                     {mainData[1]?.slice(0, 12).map((cell, j) => (
                       <th
                         key={j}
-                        className={`px-2 py-1 font-bold text-center border-b-4 border-black whitespace-nowrap ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`}
+                        className={`px-2 py-1 font-bold text-center border-b-4 border-black whitespace-nowrap bg-transparent ${[4, 5, 9].includes(j) ? 'border-r-2 border-black' : ''}`}
                       >
                         {cell}
                       </th>
