@@ -76,14 +76,11 @@ export default function SteelSonsLeaderboard() {
   const headerStyle = "text-yellow-700 text-shadow-black";
 
   const getVisibleRows = () => {
-    const data = mainData.slice(2); // skip headers
+    if (isExpanded) return mainData;
 
-    if (isExpanded) return data;
-
-    return data.filter((_, idx) => {
-      const displayRows = [0, 1, 6, 11, 16];
-      const actualRow = idx + 2; // offset for slice(2)
-      return displayRows.includes(idx) || (actualRow >= 18 && (actualRow - 3) % 5 === 0);
+    return mainData.filter((_, index) => {
+      if (index <= 2) return true; // Show header + first 2 data rows
+      return (index - 3) % 5 === 0; // Every 5th row starting at index 3 (row 4)
     });
   };
 
@@ -153,7 +150,7 @@ export default function SteelSonsLeaderboard() {
               {isExpanded ? "Collapse View" : "Expand View"}
             </button>
           </div>
-          {mainData.length > 2 ? (
+          {mainData.length > 0 ? (
             <div className="overflow-x-auto">
               <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden">
                 <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
