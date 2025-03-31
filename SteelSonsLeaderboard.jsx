@@ -6,6 +6,7 @@ export default function SteelSonsLeaderboard() {
   const [summaryData, setSummaryData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [refreshCountdown, setRefreshCountdown] = useState(20);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const previousMainData = useRef([]);
   const previousMastersData = useRef([]);
@@ -74,6 +75,16 @@ export default function SteelSonsLeaderboard() {
 
   const headerStyle = "text-yellow-700 text-shadow-black";
 
+  const getVisibleRows = () => {
+    if (isExpanded) return mainData.slice(2);
+
+    return mainData.slice(2).filter((_, idx) => {
+      return [0, 1, 6, 11, 16].includes(idx) || idx % 5 === 0;
+    });
+  };
+
+  const visibleRows = getVisibleRows();
+
   return (
     <div className="min-h-screen w-full bg-cover bg-center p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
       {/* Fancy Header */}
@@ -111,8 +122,8 @@ export default function SteelSonsLeaderboard() {
 
           <a
             href="/history.html"
-  className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-4 py-2 rounded-full shadow transition"
->
+            className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-4 py-2 rounded-full shadow transition"
+          >
             🏆 View Pool History
           </a>
         </div>
@@ -128,8 +139,16 @@ export default function SteelSonsLeaderboard() {
 
       <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
         {/* Real-Time Standings */}
-<div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg">
+        <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg">
           <h2 className={`text-xl sm:text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
+          <div className="flex justify-end mb-2">
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-sm bg-yellow-700 hover:bg-yellow-800 text-white px-3 py-1 rounded-full shadow transition"
+            >
+              {isExpanded ? "Collapse View" : "Expand View"}
+            </button>
+          </div>
           {mainData.length > 2 ? (
             <div className="overflow-x-auto">
               <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden">
@@ -176,7 +195,7 @@ export default function SteelSonsLeaderboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {mainData.slice(2).map((row, i) => (
+                  {visibleRows.map((row, i) => (
                     <tr
                       key={i}
                       className={`text-center ${
