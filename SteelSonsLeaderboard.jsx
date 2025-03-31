@@ -76,14 +76,19 @@ export default function SteelSonsLeaderboard() {
   const headerStyle = "text-yellow-700 text-shadow-black";
 
   const getVisibleRows = () => {
-    if (isExpanded) return mainData.slice(2);
+    const data = mainData.slice(2); // skip headers
 
-    return mainData.slice(2).filter((_, idx) => {
-      return [0, 1, 6, 11, 16].includes(idx) || idx % 5 === 0;
+    if (isExpanded) return data;
+
+    return data.filter((_, idx) => {
+      const displayRows = [0, 1, 6, 11, 16];
+      const actualRow = idx + 2; // offset for slice(2)
+      return displayRows.includes(idx) || (actualRow >= 18 && (actualRow - 3) % 5 === 0);
     });
   };
 
   const visibleRows = getVisibleRows();
+  const visibleColumns = isExpanded ? Array.from({ length: 12 }, (_, i) => i) : [0, 1, 4];
 
   return (
     <div className="min-h-screen w-full bg-cover bg-center p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
@@ -109,7 +114,6 @@ export default function SteelSonsLeaderboard() {
           From Manor Valley to Augusta National
         </p>
 
-        {/* Links: Signup + History */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 mb-4">
           <a
             href="https://script.google.com/macros/s/AKfycbwcmZ-2kmbVfMwPH2gjLxb0hD_Pe3eQ9R_ti55B1JivfrV3eFLb2AfUpS-8cZgoroqzVg/exec"
@@ -154,63 +158,25 @@ export default function SteelSonsLeaderboard() {
               <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden">
                 <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
                   <tr>
-                    {mainData[1]?.slice(0, 12).map((_, j) => {
-                      if (j === 6) {
-                        return (
-                          <th
-                            key="completed-header"
-                            colSpan={4}
-                            className="text-center font-bold border-b border-black border-r-2 border-black"
-                          >
-                            Completed Rounds
-                          </th>
-                        );
-                      }
-                      if (j === 10) {
-                        return (
-                          <th
-                            key="current-header"
-                            colSpan={2}
-                            className="text-center font-bold border-b border-black border-r-2 border-black"
-                          >
-                            Current Round
-                          </th>
-                        );
-                      }
-                      return j < 6 ? <th key={j}></th> : null;
-                    })}
-                  </tr>
-                  <tr>
-                    {mainData[1]?.slice(0, 12).map((cell, j) => (
+                    {visibleColumns.map((j) => (
                       <th
                         key={j}
-                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
-                          ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}
-                          ${j === 0 ? "rounded-tl-xl" : ""}
-                          ${j === 11 ? "rounded-tr-xl" : ""}`}
+                        className="px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap"
                       >
-                        {cell}
+                        {mainData[1]?.[j]}
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {visibleRows.map((row, i) => (
-                    <tr
-                      key={i}
-                      className={`text-center ${
-                        (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
-                      }`}
-                    >
-                      {row.slice(0, 12).map((cell, j) => (
+                    <tr key={i} className="text-center">
+                      {visibleColumns.map((j) => (
                         <td
                           key={j}
-                          className={`px-2 py-1 whitespace-nowrap 
-                            ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}
-                            ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
-                            ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}`}
+                          className="px-2 py-1 whitespace-nowrap border-gray-300 border-b"
                         >
-                          {cell}
+                          {row[j]}
                         </td>
                       ))}
                     </tr>
