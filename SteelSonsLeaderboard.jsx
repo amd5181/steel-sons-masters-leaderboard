@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+ import { useEffect, useState, useRef } from "react";
 
 export default function SteelSonsLeaderboard() {
   const [mainData, setMainData] = useState([]);
@@ -6,7 +6,6 @@ export default function SteelSonsLeaderboard() {
   const [summaryData, setSummaryData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [refreshCountdown, setRefreshCountdown] = useState(20);
-  const [isExpanded, setIsExpanded] = useState(false);
 
   const previousMainData = useRef([]);
   const previousMastersData = useRef([]);
@@ -18,7 +17,7 @@ export default function SteelSonsLeaderboard() {
   const encodedRange = encodeURIComponent(range);
 
   const fetchData = () => {
-    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodedRange}?key=${API_KEY}`;
+    const url = https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodedRange}?key=${API_KEY};
 
     fetch(url, { cache: "no-store" })
       .then((res) => res.json())
@@ -75,27 +74,9 @@ export default function SteelSonsLeaderboard() {
 
   const headerStyle = "text-yellow-700 text-shadow-black";
 
-  const visibleColumns = isExpanded
-    ? Array.from({ length: 12 }, (_, i) => i)
-    : [0, 1, 4];
-
-  const getVisibleRows = () => {
-    if (!mainData.length) return [];
-
-    const headers = mainData.slice(0, 2); // first two rows (title + headers)
-    const dataRows = mainData.slice(2);
-
-    if (isExpanded) return [...headers, ...dataRows];
-
-    const filtered = dataRows.filter((_, i) => i === 1 || (i - 1) % 5 === 0); // rows 3, 8, 13, etc.
-    return [...headers, ...filtered];
-  };
-
-  const visibleRows = getVisibleRows();
-
   return (
     <div className="min-h-screen w-full bg-cover bg-center p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
-      {/* Header */}
+      {/* Fancy Header */}
       <div className="text-center mb-8 z-10">
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 text-transparent bg-clip-text drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] font-serif uppercase">
           Steel Sons Masters Pool
@@ -117,7 +98,7 @@ export default function SteelSonsLeaderboard() {
           From Manor Valley to Augusta National
         </p>
 
-        {/* Links */}
+        {/* Links: Signup + History */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 mb-4">
           <a
             href="https://script.google.com/macros/s/AKfycbwcmZ-2kmbVfMwPH2gjLxb0hD_Pe3eQ9R_ti55B1JivfrV3eFLb2AfUpS-8cZgoroqzVg/exec"
@@ -127,10 +108,11 @@ export default function SteelSonsLeaderboard() {
           >
             📝 Sign Up for the 2025 Pool
           </a>
+
           <a
             href="/history.html"
-            className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-4 py-2 rounded-full shadow transition"
-          >
+  className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-4 py-2 rounded-full shadow transition"
+>
             🏆 View Pool History
           </a>
         </div>
@@ -146,67 +128,70 @@ export default function SteelSonsLeaderboard() {
 
       <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
         {/* Real-Time Standings */}
-        <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg">
-          <h2 className={`text-xl sm:text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
-          <div className="flex justify-end mb-2">
-            <button
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="text-sm bg-yellow-700 hover:bg-yellow-800 text-white px-3 py-1 rounded-full shadow transition"
-            >
-              {isExpanded ? "Collapse View" : "Expand View"}
-            </button>
-          </div>
-
-          {visibleRows.length ? (
+<div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg">
+          <h2 className={text-xl sm:text-2xl font-bold mb-4 ${headerStyle}}>Real-Time Standings</h2>
+          {mainData.length > 2 ? (
             <div className="overflow-x-auto">
               <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden">
                 <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
-                  {isExpanded && (
-                    <tr>
-                      {visibleColumns.map((j) => {
-                        if (j === 6) {
-                          return (
-                            <th
-                              key="completed-header"
-                              colSpan={4}
-                              className="text-center font-bold border-b border-black border-r-2 border-black"
-                            >
-                              Completed Rounds
-                            </th>
-                          );
-                        }
-                        if (j === 10) {
-                          return (
-                            <th
-                              key="current-header"
-                              colSpan={2}
-                              className="text-center font-bold border-b border-black border-r-2 border-black"
-                            >
-                              Current Round
-                            </th>
-                          );
-                        }
-                        return j < 6 ? <th key={j}></th> : null;
-                      })}
-                    </tr>
-                  )}
                   <tr>
-                    {visibleColumns.map((j) => (
+                    {mainData[1]?.slice(0, 12).map((_, j) => {
+                      if (j === 6) {
+                        return (
+                          <th
+                            key="completed-header"
+                            colSpan={4}
+                            className="text-center font-bold border-b border-black border-r-2 border-black"
+                          >
+                            Completed Rounds
+                          </th>
+                        );
+                      }
+                      if (j === 10) {
+                        return (
+                          <th
+                            key="current-header"
+                            colSpan={2}
+                            className="text-center font-bold border-b border-black border-r-2 border-black"
+                          >
+                            Current Round
+                          </th>
+                        );
+                      }
+                      return j < 6 ? <th key={j}></th> : null;
+                    })}
+                  </tr>
+                  <tr>
+                    {mainData[1]?.slice(0, 12).map((cell, j) => (
                       <th
                         key={j}
-                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap`}
+                        className={px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
+                          ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}
+                          ${j === 0 ? "rounded-tl-xl" : ""}
+                          ${j === 11 ? "rounded-tr-xl" : ""}}
                       >
-                        {mainData[1]?.[j]}
+                        {cell}
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {visibleRows.slice(2).map((row, i) => (
-                    <tr key={i} className="text-center">
-                      {visibleColumns.map((j) => (
-                        <td key={j} className="px-2 py-1 whitespace-nowrap border-b border-gray-300">
-                          {row[j]}
+                  {mainData.slice(2).map((row, i) => (
+                    <tr
+                      key={i}
+                      className={text-center ${
+                        (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
+                      }}
+                    >
+                      {row.slice(0, 12).map((cell, j) => (
+                        <td
+                          key={j}
+                          className={px-2 py-1 whitespace-nowrap 
+                            ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}
+                            ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
+                            ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}}
+                        >
+                          {cell}
                         </td>
                       ))}
                     </tr>
@@ -222,7 +207,7 @@ export default function SteelSonsLeaderboard() {
         {/* Right Panel */}
         <div className="flex flex-col w-full lg:max-w-sm space-y-6">
           <div className="overlay rounded-2xl border border-black p-4">
-            <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
+            <h2 className={text-lg sm:text-xl font-semibold mb-2 ${headerStyle}}>Masters Leaderboard</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
               <tbody>
                 {mastersData.map((row, i) => (
@@ -236,7 +221,7 @@ export default function SteelSonsLeaderboard() {
           </div>
 
           <div className="overlay rounded-2xl border border-black p-4">
-            <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Summary</h2>
+            <h2 className={text-lg sm:text-xl font-semibold mb-2 ${headerStyle}}>Summary</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
               <tbody>
                 {summaryData.map((row, i) => (
