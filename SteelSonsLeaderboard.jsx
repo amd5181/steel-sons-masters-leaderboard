@@ -1,4 +1,4 @@
- import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function SteelSonsLeaderboard() {
   const [mainData, setMainData] = useState([]);
@@ -17,7 +17,7 @@ export default function SteelSonsLeaderboard() {
   const encodedRange = encodeURIComponent(range);
 
   const fetchData = () => {
-    const url = https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodedRange}?key=${API_KEY};
+    const url = `https://sheets.googleapis.com/v4/spreadsheets/${SPREADSHEET_ID}/values/${encodedRange}?key=${API_KEY}`;
 
     fetch(url, { cache: "no-store" })
       .then((res) => res.json())
@@ -129,7 +129,7 @@ export default function SteelSonsLeaderboard() {
       <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
         {/* Real-Time Standings */}
 <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg">
-          <h2 className={text-xl sm:text-2xl font-bold mb-4 ${headerStyle}}>Real-Time Standings</h2>
+          <h2 className={`text-xl sm:text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
           {mainData.length > 2 ? (
             <div className="overflow-x-auto">
               <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden">
@@ -165,10 +165,10 @@ export default function SteelSonsLeaderboard() {
                     {mainData[1]?.slice(0, 12).map((cell, j) => (
                       <th
                         key={j}
-                        className={px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
+                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
                           ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}
                           ${j === 0 ? "rounded-tl-xl" : ""}
-                          ${j === 11 ? "rounded-tr-xl" : ""}}
+                          ${j === 11 ? "rounded-tr-xl" : ""}`}
                       >
                         {cell}
                       </th>
@@ -179,17 +179,17 @@ export default function SteelSonsLeaderboard() {
                   {mainData.slice(2).map((row, i) => (
                     <tr
                       key={i}
-                      className={text-center ${
+                      className={`text-center ${
                         (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
-                      }}
+                      }`}
                     >
                       {row.slice(0, 12).map((cell, j) => (
                         <td
                           key={j}
-                          className={px-2 py-1 whitespace-nowrap 
+                          className={`px-2 py-1 whitespace-nowrap 
                             ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}
                             ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
-                            ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}}
+                            ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}`}
                         >
                           {cell}
                         </td>
@@ -207,7 +207,7 @@ export default function SteelSonsLeaderboard() {
         {/* Right Panel */}
         <div className="flex flex-col w-full lg:max-w-sm space-y-6">
           <div className="overlay rounded-2xl border border-black p-4">
-            <h2 className={text-lg sm:text-xl font-semibold mb-2 ${headerStyle}}>Masters Leaderboard</h2>
+            <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
               <tbody>
                 {mastersData.map((row, i) => (
@@ -221,7 +221,7 @@ export default function SteelSonsLeaderboard() {
           </div>
 
           <div className="overlay rounded-2xl border border-black p-4">
-            <h2 className={text-lg sm:text-xl font-semibold mb-2 ${headerStyle}}>Summary</h2>
+            <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Summary</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
               <tbody>
                 {summaryData.map((row, i) => (
