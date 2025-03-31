@@ -75,21 +75,27 @@ export default function SteelSonsLeaderboard() {
 
   const headerStyle = "text-yellow-700 text-shadow-black";
 
-  const getVisibleRows = () => {
-    if (isExpanded) return mainData;
+  const visibleColumns = isExpanded
+    ? Array.from({ length: 12 }, (_, i) => i)
+    : [0, 1, 4];
 
-    return mainData.filter((_, index) => {
-      if (index <= 2) return true; // Show header + first 2 data rows
-      return (index - 3) % 5 === 0; // Every 5th row starting at index 3 (row 4)
-    });
+  const getVisibleRows = () => {
+    if (!mainData.length) return [];
+
+    const headers = mainData.slice(0, 2); // first two rows (title + headers)
+    const dataRows = mainData.slice(2);
+
+    if (isExpanded) return [...headers, ...dataRows];
+
+    const filtered = dataRows.filter((_, i) => i === 1 || (i - 1) % 5 === 0); // rows 3, 8, 13, etc.
+    return [...headers, ...filtered];
   };
 
   const visibleRows = getVisibleRows();
-  const visibleColumns = isExpanded ? Array.from({ length: 12 }, (_, i) => i) : [0, 1, 4];
 
   return (
     <div className="min-h-screen w-full bg-cover bg-center p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
-      {/* Fancy Header */}
+      {/* Header */}
       <div className="text-center mb-8 z-10">
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 text-transparent bg-clip-text drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] font-serif uppercase">
           Steel Sons Masters Pool
@@ -111,6 +117,7 @@ export default function SteelSonsLeaderboard() {
           From Manor Valley to Augusta National
         </p>
 
+        {/* Links */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 mb-4">
           <a
             href="https://script.google.com/macros/s/AKfycbwcmZ-2kmbVfMwPH2gjLxb0hD_Pe3eQ9R_ti55B1JivfrV3eFLb2AfUpS-8cZgoroqzVg/exec"
@@ -120,7 +127,6 @@ export default function SteelSonsLeaderboard() {
           >
             📝 Sign Up for the 2025 Pool
           </a>
-
           <a
             href="/history.html"
             className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-4 py-2 rounded-full shadow transition"
@@ -150,15 +156,45 @@ export default function SteelSonsLeaderboard() {
               {isExpanded ? "Collapse View" : "Expand View"}
             </button>
           </div>
-          {mainData.length > 0 ? (
+
+          {visibleRows.length ? (
             <div className="overflow-x-auto">
               <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden">
                 <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
+                  {isExpanded && (
+                    <tr>
+                      {visibleColumns.map((j) => {
+                        if (j === 6) {
+                          return (
+                            <th
+                              key="completed-header"
+                              colSpan={4}
+                              className="text-center font-bold border-b border-black border-r-2 border-black"
+                            >
+                              Completed Rounds
+                            </th>
+                          );
+                        }
+                        if (j === 10) {
+                          return (
+                            <th
+                              key="current-header"
+                              colSpan={2}
+                              className="text-center font-bold border-b border-black border-r-2 border-black"
+                            >
+                              Current Round
+                            </th>
+                          );
+                        }
+                        return j < 6 ? <th key={j}></th> : null;
+                      })}
+                    </tr>
+                  )}
                   <tr>
                     {visibleColumns.map((j) => (
                       <th
                         key={j}
-                        className="px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap"
+                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap`}
                       >
                         {mainData[1]?.[j]}
                       </th>
@@ -166,13 +202,10 @@ export default function SteelSonsLeaderboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {visibleRows.map((row, i) => (
+                  {visibleRows.slice(2).map((row, i) => (
                     <tr key={i} className="text-center">
                       {visibleColumns.map((j) => (
-                        <td
-                          key={j}
-                          className="px-2 py-1 whitespace-nowrap border-gray-300 border-b"
-                        >
+                        <td key={j} className="px-2 py-1 whitespace-nowrap border-b border-gray-300">
                           {row[j]}
                         </td>
                       ))}
