@@ -119,7 +119,7 @@ export default function SteelSonsLeaderboard() {
 
       <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
         {/* Real-Time Standings */}
-        <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/20 backdrop-blur-md shadow-lg transition-all duration-300 ease-in-out">
+        <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg transition-all duration-300 ease-in-out">
           <h2 className={`text-xl sm:text-2xl font-bold mb-2 ${headerStyle}`}>Real-Time Standings</h2>
 
           <button
@@ -131,7 +131,7 @@ export default function SteelSonsLeaderboard() {
 
           {mainData.length > 2 ? (
             <div className="overflow-x-auto transition-all duration-300 ease-in-out">
-              <table className="w-full text-sm bg-white/20 backdrop-blur-md rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out">
+              <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out">
                 <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
                   {!collapsed && (
                     <tr>
