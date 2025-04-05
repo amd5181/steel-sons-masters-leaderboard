@@ -134,8 +134,8 @@ export default function SteelSonsLeaderboard() {
 
           {mainData.length > 2 ? (
             <div className="overflow-x-auto transition-all duration-300 ease-in-out">
-              <table className="w-full text-sm bg-white/50 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out">
-                <thead className="sticky top-0 bg-white/50 backdrop-blur-md z-10">
+               <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
+                <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
                   {!collapsed && (
                     <tr>
                       {mainData[1]?.slice(0, 12).map((_, j) => {
