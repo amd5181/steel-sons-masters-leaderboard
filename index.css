@@ -12,6 +12,19 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+
+
+  background: url('/bridge.jpg') no-repeat center center;
+  background-size: cover;
+  opacity: 0.16; /* softened for subtle background */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  pointer-events: none;
+
 }
 
 .bridge-watermark {
