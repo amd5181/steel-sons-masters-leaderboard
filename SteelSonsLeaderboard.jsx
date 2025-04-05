@@ -3,15 +3,12 @@ import { useEffect, useState, useRef } from "react";
 export default function SteelSonsLeaderboard() {
   const [mainData, setMainData] = useState([]);
   const [mastersData, setMastersData] = useState([]);
-  const [summaryData, setSummaryData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [refreshCountdown, setRefreshCountdown] = useState(20);
   const [collapsed, setCollapsed] = useState(false);
-  const [cardView, setCardView] = useState(false);
 
   const previousMainData = useRef([]);
   const previousMastersData = useRef([]);
-  const previousSummaryData = useRef([]);
 
   const API_KEY = "AIzaSyC-0Zrg5OARvAqSmyK8P8lkJqVCccGjrF4";
   const SPREADSHEET_ID = "1wHB6gZhyRcGm8jy0w3ntt3cfgMjmX7QpVfP6RnWNhvY";
@@ -36,7 +33,6 @@ export default function SteelSonsLeaderboard() {
 
         const newMain = rows.slice(0, 300);
         const newMasters = rows.slice(1, 12).map((r) => r.slice(17, 19));
-        const newSummary = rows.slice(1, 60).map((r) => r.slice(13, 16));
 
         const isEqual = (a, b) => JSON.stringify(a) === JSON.stringify(b);
         if (!isEqual(previousMainData.current, newMain)) {
@@ -46,10 +42,6 @@ export default function SteelSonsLeaderboard() {
         if (!isEqual(previousMastersData.current, newMasters)) {
           previousMastersData.current = newMasters;
           setMastersData(newMasters);
-        }
-        if (!isEqual(previousSummaryData.current, newSummary)) {
-          previousSummaryData.current = newSummary;
-          setSummaryData(newSummary);
         }
 
         setLastUpdated(new Date().toLocaleTimeString());
@@ -130,125 +122,103 @@ export default function SteelSonsLeaderboard() {
         <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg transition-all duration-300 ease-in-out">
           <h2 className={`text-xl sm:text-2xl font-bold mb-2 ${headerStyle}`}>Real-Time Standings</h2>
 
-          <div className="flex gap-2 mb-4">
-            <button
-              onClick={() => setCollapsed(!collapsed)}
-              className="px-6 py-2 rounded-full bg-yellow-600 text-white font-semibold tracking-wide shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 ease-in-out"
-            >
-              {collapsed ? "Expand View" : "Collapse View"}
-            </button>
-
-            <button
-              onClick={() => setCardView(!cardView)}
-              className="px-6 py-2 rounded-full bg-gray-800 text-white font-semibold tracking-wide shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 ease-in-out"
-            >
-              {cardView ? "View Table" : "View Cards"}
-            </button>
-          </div>
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="mb-4 px-6 py-2 rounded-full bg-yellow-600 text-white font-semibold tracking-wide shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 ease-in-out"
+          >
+            {collapsed ? "Expand View" : "Collapse View"}
+          </button>
 
           {mainData.length > 2 ? (
-            cardView ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {mainData.slice(2).map((row, i) => (
-                  <div key={i} className="bg-white/80 backdrop-blur rounded-xl border border-black shadow-lg p-4">
-                    <h3 className="text-xl font-bold text-yellow-800 mb-2">{row[0]}</h3>
-                    <p className="text-sm text-gray-700 mb-1"><strong>Rank:</strong> {row[1]}</p>
-                    <p className="text-sm text-gray-700 mb-1"><strong>Total:</strong> {row[2]}</p>
-                    <p className="text-sm text-gray-700"><strong>Golfers:</strong> {row.slice(6, 12).filter(Boolean).join(", ")}</p>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <div className="overflow-x-auto transition-all duration-300 ease-in-out">
-                <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out">
-                  <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
-                    {!collapsed && (
-                      <tr>
-                        {mainData[1]?.slice(0, 12).map((_, j) => {
-                          if (j === 6) {
-                            return (
-                              <th
-                                key="completed-header"
-                                colSpan={4}
-                                className="text-center font-bold border-b border-black border-r-2 border-black"
-                              >
-                                Completed Rounds
-                              </th>
-                            );
-                          }
-                          if (j === 10) {
-                            return (
-                              <th
-                                key="current-header"
-                                colSpan={2}
-                                className="text-center font-bold border-b border-black border-r-2 border-black"
-                              >
-                                Current Round
-                              </th>
-                            );
-                          }
-                          return j < 6 ? <th key={j}></th> : null;
-                        })}
-                      </tr>
-                    )}
+            <div className="overflow-x-auto transition-all duration-300 ease-in-out">
+              <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out">
+                <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
+                  {!collapsed && (
                     <tr>
-                      {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
-                        <th
-                          key={j}
-                          className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
-                            ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
-                            ${j === 0 ? "rounded-tl-xl" : ""}
-                            ${j === 11 ? "rounded-tr-xl" : ""}`}
-                        >
-                          {mainData[1]?.[j]}
-                        </th>
-                      ))}
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {mainData.slice(2).map((row, i) => {
-                      const displayRowIndex = i + 3;
-                      const shouldDisplay =
-                        !collapsed ||
-                        displayRowIndex === 3 ||
-                        displayRowIndex === 8 ||
-                        displayRowIndex === 13 ||
-                        displayRowIndex === 18 ||
-                        displayRowIndex % 5 === 3;
-
-                      if (!shouldDisplay) return null;
-
-                      return (
-                        <tr
-                          key={i}
-                          className={`text-center ${
-                            (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
-                          }`}
-                        >
-                          {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
-                            <td
-                              key={j}
-                              className={`px-2 py-1 whitespace-nowrap 
-                                ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
-                                ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
-                                ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}`}
+                      {mainData[1]?.slice(0, 12).map((_, j) => {
+                        if (j === 6) {
+                          return (
+                            <th
+                              key="completed-header"
+                              colSpan={4}
+                              className="text-center font-bold border-b border-black border-r-2 border-black"
                             >
-                              {row[j]}
-                            </td>
-                          ))}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-            )
+                              Completed Rounds
+                            </th>
+                          );
+                        }
+                        if (j === 10) {
+                          return (
+                            <th
+                              key="current-header"
+                              colSpan={2}
+                              className="text-center font-bold border-b border-black border-r-2 border-black"
+                            >
+                              Current Round
+                            </th>
+                          );
+                        }
+                        return j < 6 ? <th key={j}></th> : null;
+                      })}
+                    </tr>
+                  )}
+                  <tr>
+                    {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
+                      <th
+                        key={j}
+                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
+                          ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
+                          ${j === 0 ? "rounded-tl-xl" : ""}
+                          ${j === 11 ? "rounded-tr-xl" : ""}`}
+                      >
+                        {mainData[1]?.[j]}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {mainData.slice(2).map((row, i) => {
+                    const displayRowIndex = i + 3;
+                    const shouldDisplay =
+                      !collapsed ||
+                      displayRowIndex === 3 ||
+                      displayRowIndex === 8 ||
+                      displayRowIndex === 13 ||
+                      displayRowIndex === 18 ||
+                      displayRowIndex % 5 === 3;
+
+                    if (!shouldDisplay) return null;
+
+                    return (
+                      <tr
+                        key={i}
+                        className={`text-center ${
+                          (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
+                        }`}
+                      >
+                        {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
+                          <td
+                            key={j}
+                            className={`px-2 py-1 whitespace-nowrap 
+                              ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
+                              ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
+                              ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}`}
+                          >
+                            {row[j]}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           ) : (
             <p>Loading Data...</p>
           )}
         </div>
 
-        {/* Right Panel */}
+        {/* Right Panel — Masters Leaderboard Only */}
         <div className="flex flex-col w-full lg:max-w-sm space-y-6">
           <div className="overlay rounded-2xl border border-black p-4">
             <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
@@ -258,21 +228,6 @@ export default function SteelSonsLeaderboard() {
                   <tr key={i} className="text-center">
                     <td className="px-2 py-1 border-b border-gray-400 whitespace-nowrap">{row[0]}</td>
                     <td className="px-2 py-1 border-b border-gray-400 whitespace-nowrap">{row[1]}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          <div className="overlay rounded-2xl border border-black p-4">
-            <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Summary</h2>
-            <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
-              <tbody>
-                {summaryData.map((row, i) => (
-                  <tr key={i} className="text-center">
-                    <td className="px-2 py-1 border-b border-gray-400 whitespace-nowrap">{row[0]}</td>
-                    <td className="px-2 py-1 border-b border-gray-400 whitespace-nowrap">{row[1]}</td>
-                    <td className="px-2 py-1 border-b border-gray-400 whitespace-nowrap">{row[2]}</td>
                   </tr>
                 ))}
               </tbody>
