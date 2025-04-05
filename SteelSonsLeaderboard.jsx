@@ -171,7 +171,7 @@ export default function SteelSonsLeaderboard() {
                     </tr>
                   )}
                   <tr>
-                    {(collapsed ? [0, 1, 3] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
+                    {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
                       <th
                         key={j}
                         className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
@@ -199,7 +199,7 @@ export default function SteelSonsLeaderboard() {
 
                     return (
                       <tr key={i} className="text-center">
-                        {(collapsed ? [0, 1, 3] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
+                        {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
                           <td
                             key={j}
                             className={`px-2 py-1 whitespace-nowrap 
