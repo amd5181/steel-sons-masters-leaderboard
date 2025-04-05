@@ -134,7 +134,7 @@ export default function SteelSonsLeaderboard() {
 
           {mainData.length > 2 ? (
             <div className="overflow-x-auto transition-all duration-300 ease-in-out">
-<table className="w-full text-sm bg-white/30 rounded-xl border-t border-l border-b border-black overflow-hidden text-black">
+              <table className="w-full text-sm bg-white/30 rounded-xl border-t border-l border-b border-black overflow-hidden text-black">
                 <thead className="sticky top-0 bg-white/30 z-10">
                   {!collapsed && (
                     <tr>
@@ -144,7 +144,7 @@ export default function SteelSonsLeaderboard() {
                             <th
                               key="completed-header"
                               colSpan={4}
-                              className="text-center font-bold border-b border-black border-r-2 border-l-2 border-black"
+                              className="text-center font-bold border-b border-black border-r-2 border-black"
                             >
                               Completed Rounds
                             </th>
@@ -155,7 +155,7 @@ export default function SteelSonsLeaderboard() {
                             <th
                               key="current-header"
                               colSpan={2}
-                              className="text-center font-bold border-b border-black border-r-2 border-black"
+                              className="text-center font-bold border-b border-black"
                             >
                               Current Round
                             </th>
