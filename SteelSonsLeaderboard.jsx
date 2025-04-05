@@ -134,7 +134,7 @@ export default function SteelSonsLeaderboard() {
 
           {mainData.length > 2 ? (
             <div className="overflow-x-auto transition-all duration-300 ease-in-out">
-              <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out text-black">
+              <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden text-black">
                 <thead className="sticky top-0 bg-white/30 z-10">
                   {!collapsed && (
                     <tr>
@@ -223,7 +223,7 @@ export default function SteelSonsLeaderboard() {
 
         {/* Right Panel — Masters Leaderboard Only */}
         <div className="flex flex-col w-full lg:max-w-sm space-y-6">
-          <div className="overlay rounded-2xl border border-black p-4 bg-white/30">
+          <div className="rounded-2xl border border-black p-4 bg-white/30">
             <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black text-black">
               <tbody>
