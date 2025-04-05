@@ -186,7 +186,7 @@ export default function SteelSonsLeaderboard() {
                 <tbody>
                   {mainData.slice(2).map((row, i) => {
                     const displayRowIndex = i + 3;
-                    const shouldDisplay =
+                    const isVisible =
                       !collapsed ||
                       displayRowIndex === 3 ||
                       displayRowIndex === 8 ||
@@ -194,17 +194,14 @@ export default function SteelSonsLeaderboard() {
                       displayRowIndex === 18 ||
                       displayRowIndex % 5 === 3;
 
-                    if (!shouldDisplay) return null;
-
                     return (
                       <tr
                         key={i}
-                        className={`text-center transition-all duration-300 ease-in-out ${
-                          (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
+                        className={`text-center transition-all duration-500 ease-in-out overflow-hidden ${
+                          isVisible ? "max-h-[100px] opacity-100" : "max-h-0 opacity-0"
                         }`}
                         style={{
-                          opacity: 1,
-                          transform: "translateY(0px)",
+                          display: "table-row",
                         }}
                       >
                         {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
