@@ -79,13 +79,16 @@ export default function SteelSonsLeaderboard() {
           2025
         </h2>
 
-        <div className="flex justify-center mt-3">
-          <img
-            src="/ben.png"
-            alt="Steel Beam"
-            className="h-12 sm:h-16 w-80 sm:w-[30rem] object-contain drop-shadow-md animate-slide-in"
-          />
-        </div>
+        <div className="flex justify-center items-center gap-4 mt-6">
+  {[...Array(3)].map((_, index) => (
+    <img
+      key={index}
+      src="/arnold-palmer.png"
+      alt={`Arnold Palmer ${index + 1}`}
+      className="h-24 sm:h-28 w-auto object-contain drop-shadow-md"
+    />
+  ))}
+</div>
 
         <p className="text-md sm:text-lg italic text-gray-700 mt-4 font-light tracking-wide">
           From Manor Valley to Augusta National
