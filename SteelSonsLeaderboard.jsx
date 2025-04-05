@@ -120,7 +120,7 @@ export default function SteelSonsLeaderboard() {
       <div className="bridge-watermark"></div>
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
-      <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
+<div className="flex flex-col-reverse lg:flex-row gap-4 w-full overflow-x-auto">
         {/* Real-Time Standings */}
         <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 shadow-lg transition-all duration-300 ease-in-out">
           <h2 className={`text-xl sm:text-2xl font-bold mb-2 ${headerStyle}`}>Real-Time Standings</h2>
