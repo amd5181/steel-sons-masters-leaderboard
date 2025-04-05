@@ -17,7 +17,7 @@ body {
 .bridge-watermark {
   background: url('/bridge.jpg') no-repeat center center;
   background-size: cover;
-  opacity: 0.35; /* softened for subtle background */
+  opacity: 0.15; /* softened for subtle background */
   position: fixed;
   top: 0;
   left: 0;
@@ -43,7 +43,7 @@ body {
 .overlay {
   position: relative;
   z-index: 10;
-  background-color: rgba(255, 255, 255, 0.35); /* adjusted for balance */
+  background-color: rgba(255, 255, 255, 0.6); /* adjusted for balance */
   border: 2px solid black;
   border-radius: 12px;
   padding: 1rem;
