@@ -117,7 +117,7 @@ export default function SteelSonsLeaderboard() {
         </p>
       </div>
 
-      <div className="bridge-watermark"></div>
+      <div ></div> 
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
       <div className="flex flex-col-reverse lg:flex-row gap-4 w-full overflow-x-auto">
