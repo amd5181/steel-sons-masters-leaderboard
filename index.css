@@ -17,7 +17,7 @@ body {
 .bridge-watermark {
   background: url('/bridge.jpg') no-repeat center center;
   background-size: cover;
-  opacity: 0.25;
+  opacity: 0.08; /* softened for a more whitewashed effect */
   position: fixed;
   top: 0;
   left: 0;
@@ -25,6 +25,9 @@ body {
   height: 100vh;
   z-index: 1;
   pointer-events: none;
+
+  /* Optional: uncomment for extra clean tone */
+  /* filter: grayscale(100%) brightness(110%); */
 }
 
 .arnold-palmer {
