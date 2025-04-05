@@ -66,7 +66,7 @@ export default function SteelSonsLeaderboard() {
     return () => clearInterval(intervalId);
   }, []);
 
-  const headerStyle = "text-yellow-700 text-shadow-black";
+  const headerStyle = "text-yellow-700";
 
   return (
     <div className="min-h-screen w-full bg-cover bg-center p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
@@ -75,7 +75,7 @@ export default function SteelSonsLeaderboard() {
           Steel Sons Masters Pool
         </h1>
 
-        <h2 className="text-xl sm:text-2xl font-semibold tracking-wider mt-1 font-mono text-gray-700 uppercase [text-shadow:1px_1px_0_#bbb]">
+        <h2 className="text-xl sm:text-2xl font-semibold tracking-wider mt-1 font-mono text-gray-700 uppercase">
           2025
         </h2>
 
@@ -122,7 +122,7 @@ export default function SteelSonsLeaderboard() {
 
       <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
         {/* Real-Time Standings */}
-        <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg transition-all duration-300 ease-in-out">
+        <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 shadow-lg transition-all duration-300 ease-in-out">
           <h2 className={`text-xl sm:text-2xl font-bold mb-2 ${headerStyle}`}>Real-Time Standings</h2>
 
           <button
@@ -134,8 +134,8 @@ export default function SteelSonsLeaderboard() {
 
           {mainData.length > 2 ? (
             <div className="overflow-x-auto transition-all duration-300 ease-in-out">
-              <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out">
-                <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
+              <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out text-black">
+                <thead className="sticky top-0 bg-white/30 z-10">
                   {!collapsed && (
                     <tr>
                       {mainData[1]?.slice(0, 12).map((_, j) => {
@@ -217,15 +217,15 @@ export default function SteelSonsLeaderboard() {
               </table>
             </div>
           ) : (
-            <p>Loading Data...</p>
+            <p className="text-gray-800">Loading Data...</p>
           )}
         </div>
 
         {/* Right Panel — Masters Leaderboard Only */}
         <div className="flex flex-col w-full lg:max-w-sm space-y-6">
-          <div className="overlay rounded-2xl border border-black p-4">
+          <div className="overlay rounded-2xl border border-black p-4 bg-white/30">
             <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
-            <table className="w-full text-sm bg-white/30 rounded-xl border border-black">
+            <table className="w-full text-sm bg-white/30 rounded-xl border border-black text-black">
               <tbody>
                 {mastersData.map((row, i) => (
                   <tr key={i} className="text-center">
