@@ -6,6 +6,7 @@ export default function SteelSonsLeaderboard() {
   const [summaryData, setSummaryData] = useState([]);
   const [lastUpdated, setLastUpdated] = useState(null);
   const [refreshCountdown, setRefreshCountdown] = useState(20);
+  const [collapsed, setCollapsed] = useState(false);
 
   const previousMainData = useRef([]);
   const previousMastersData = useRef([]);
@@ -98,7 +99,6 @@ export default function SteelSonsLeaderboard() {
           From Manor Valley to Augusta National
         </p>
 
-        {/* Links: Signup + History */}
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 mb-4">
           <a
             href="https://script.google.com/macros/s/AKfycbwcmZ-2kmbVfMwPH2gjLxb0hD_Pe3eQ9R_ti55B1JivfrV3eFLb2AfUpS-8cZgoroqzVg/exec"
@@ -111,8 +111,8 @@ export default function SteelSonsLeaderboard() {
 
           <a
             href="/history.html"
-  className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-4 py-2 rounded-full shadow transition"
->
+            className="bg-gray-800 hover:bg-gray-900 text-white font-semibold px-4 py-2 rounded-full shadow transition"
+          >
             🏆 View Pool History
           </a>
         </div>
@@ -122,80 +122,97 @@ export default function SteelSonsLeaderboard() {
         </p>
       </div>
 
-      {/* Decorations */}
       <div className="bridge-watermark"></div>
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
       <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
         {/* Real-Time Standings */}
-<div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg">
-          <h2 className={`text-xl sm:text-2xl font-bold mb-4 ${headerStyle}`}>Real-Time Standings</h2>
+        <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg">
+          <h2 className={`text-xl sm:text-2xl font-bold mb-2 ${headerStyle}`}>Real-Time Standings</h2>
+
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="mb-4 px-4 py-1 rounded-full bg-yellow-600 text-white hover:bg-yellow-700 transition"
+          >
+            {collapsed ? "Expand View" : "Collapse View"}
+          </button>
+
           {mainData.length > 2 ? (
             <div className="overflow-x-auto">
               <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden">
                 <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
+                  {!collapsed && (
+                    <tr>
+                      {mainData[1]?.slice(0, 12).map((_, j) => {
+                        if (j === 6) {
+                          return (
+                            <th
+                              key="completed-header"
+                              colSpan={4}
+                              className="text-center font-bold border-b border-black border-r-2 border-black"
+                            >
+                              Completed Rounds
+                            </th>
+                          );
+                        }
+                        if (j === 10) {
+                          return (
+                            <th
+                              key="current-header"
+                              colSpan={2}
+                              className="text-center font-bold border-b border-black border-r-2 border-black"
+                            >
+                              Current Round
+                            </th>
+                          );
+                        }
+                        return j < 6 ? <th key={j}></th> : null;
+                      })}
+                    </tr>
+                  )}
                   <tr>
-                    {mainData[1]?.slice(0, 12).map((_, j) => {
-                      if (j === 6) {
-                        return (
-                          <th
-                            key="completed-header"
-                            colSpan={4}
-                            className="text-center font-bold border-b border-black border-r-2 border-black"
-                          >
-                            Completed Rounds
-                          </th>
-                        );
-                      }
-                      if (j === 10) {
-                        return (
-                          <th
-                            key="current-header"
-                            colSpan={2}
-                            className="text-center font-bold border-b border-black border-r-2 border-black"
-                          >
-                            Current Round
-                          </th>
-                        );
-                      }
-                      return j < 6 ? <th key={j}></th> : null;
-                    })}
-                  </tr>
-                  <tr>
-                    {mainData[1]?.slice(0, 12).map((cell, j) => (
+                    {(collapsed ? [0, 1, 3] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
                       <th
                         key={j}
                         className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
-                          ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}
+                          ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
                           ${j === 0 ? "rounded-tl-xl" : ""}
                           ${j === 11 ? "rounded-tr-xl" : ""}`}
                       >
-                        {cell}
+                        {mainData[1]?.[j]}
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {mainData.slice(2).map((row, i) => (
-                    <tr
-                      key={i}
-                      className={`text-center ${
-                        (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
-                      }`}
-                    >
-                      {row.slice(0, 12).map((cell, j) => (
-                        <td
-                          key={j}
-                          className={`px-2 py-1 whitespace-nowrap 
-                            ${[4, 5, 9].includes(j) ? "border-r-2 border-black" : ""}
-                            ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
-                            ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}`}
-                        >
-                          {cell}
-                        </td>
-                      ))}
-                    </tr>
-                  ))}
+                  {mainData.slice(2).map((row, i) => {
+                    const displayRowIndex = i + 3;
+                    const shouldDisplay =
+                      !collapsed ||
+                      displayRowIndex === 3 ||
+                      displayRowIndex === 8 ||
+                      displayRowIndex === 13 ||
+                      displayRowIndex === 18 ||
+                      displayRowIndex % 5 === 3;
+
+                    if (!shouldDisplay) return null;
+
+                    return (
+                      <tr key={i} className="text-center">
+                        {(collapsed ? [0, 1, 3] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
+                          <td
+                            key={j}
+                            className={`px-2 py-1 whitespace-nowrap 
+                              ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
+                              ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
+                              ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}`}
+                          >
+                            {row[j]}
+                          </td>
+                        ))}
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
