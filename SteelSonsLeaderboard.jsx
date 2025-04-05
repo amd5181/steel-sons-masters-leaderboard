@@ -69,7 +69,7 @@ export default function SteelSonsLeaderboard() {
   const headerStyle = "text-yellow-700";
 
   return (
-<div className="min-h-screen w-full bg-white/90 p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
+    <div className="min-h-screen w-full bg-white/90 p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
       <div className="text-center mb-8 z-10">
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 text-transparent bg-clip-text drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] font-serif uppercase">
           Steel Sons Masters Pool
@@ -120,7 +120,7 @@ export default function SteelSonsLeaderboard() {
       <div className="bridge-watermark"></div>
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
-<div className="flex flex-col-reverse lg:flex-row gap-4 w-full overflow-x-auto">
+      <div className="flex flex-col-reverse lg:flex-row gap-4 w-full overflow-x-auto">
         {/* Real-Time Standings */}
         <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 shadow-lg transition-all duration-300 ease-in-out">
           <h2 className={`text-xl sm:text-2xl font-bold mb-2 ${headerStyle}`}>Real-Time Standings</h2>
@@ -144,7 +144,7 @@ export default function SteelSonsLeaderboard() {
                             <th
                               key="completed-header"
                               colSpan={4}
-                              className="text-center font-bold border-b border-black border-r-2 border-black"
+                              className="text-center font-bold border-b border-black border-r-2 border-l-2 border-black"
                             >
                               Completed Rounds
                             </th>
@@ -170,7 +170,7 @@ export default function SteelSonsLeaderboard() {
                       <th
                         key={j}
                         className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
-                          ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
+                          ${[4, 5, 9].includes(j) && j !== 11 && !collapsed ? "border-r-2 border-black" : ""}
                           ${j === 0 ? "rounded-tl-xl" : ""}
                           ${j === 11 ? "rounded-tr-xl" : ""}`}
                       >
@@ -203,7 +203,7 @@ export default function SteelSonsLeaderboard() {
                           <td
                             key={j}
                             className={`px-2 py-1 whitespace-nowrap 
-                              ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
+                              ${[4, 5, 9].includes(j) && j !== 11 && !collapsed ? "border-r-2 border-black" : ""}
                               ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
                               ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}`}
                           >
@@ -223,7 +223,7 @@ export default function SteelSonsLeaderboard() {
 
         {/* Right Panel — Masters Leaderboard Only */}
         <div className="flex flex-col w-full lg:max-w-sm space-y-6">
-<div className="rounded-2xl border-2 border-black p-4 bg-white/30">
+          <div className="rounded-2xl border-2 border-black p-4 bg-white/30">
             <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black text-black">
               <tbody>
