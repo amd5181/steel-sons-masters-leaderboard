@@ -17,7 +17,7 @@ body {
 .bridge-watermark {
   background: url('/bridge.jpg') no-repeat center center;
   background-size: cover;
-  opacity: 0.2; /* softened for subtle background */
+  opacity: 0.16; /* softened for subtle background */
   position: fixed;
   top: 0;
   left: 0;
