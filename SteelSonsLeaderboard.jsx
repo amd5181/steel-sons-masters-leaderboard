@@ -69,7 +69,7 @@ export default function SteelSonsLeaderboard() {
   const headerStyle = "text-yellow-700 text-shadow-black";
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-green-100 via-yellow-50 to-white p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
+    <div className="min-h-screen w-full bg-cover bg-center p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
       <div className="text-center mb-8 z-10">
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 text-transparent bg-clip-text drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] font-serif uppercase">
           Steel Sons Masters Pool
@@ -122,7 +122,7 @@ export default function SteelSonsLeaderboard() {
 
       <div className="flex flex-col lg:flex-row gap-4 w-full overflow-x-auto">
         {/* Real-Time Standings */}
-        <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 shadow-lg transition-all duration-300 ease-in-out">
+        <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg transition-all duration-300 ease-in-out">
           <h2 className={`text-xl sm:text-2xl font-bold mb-2 ${headerStyle}`}>Real-Time Standings</h2>
 
           <button
@@ -134,7 +134,7 @@ export default function SteelSonsLeaderboard() {
 
           {mainData.length > 2 ? (
             <div className="overflow-x-auto transition-all duration-300 ease-in-out">
-              <table className="w-full text-sm bg-white/70 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out">
+              <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out">
                 <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
                   {!collapsed && (
                     <tr>
