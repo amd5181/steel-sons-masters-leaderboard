@@ -7,6 +7,7 @@ export default function SteelSonsLeaderboard() {
   const [lastUpdated, setLastUpdated] = useState(null);
   const [refreshCountdown, setRefreshCountdown] = useState(20);
   const [collapsed, setCollapsed] = useState(false);
+  const [cardView, setCardView] = useState(false);
 
   const previousMainData = useRef([]);
   const previousMastersData = useRef([]);
@@ -129,98 +130,119 @@ export default function SteelSonsLeaderboard() {
         <div className="flex-1 min-w-0 border-2 border-black rounded-2xl p-4 bg-white/30 backdrop-blur-md shadow-lg transition-all duration-300 ease-in-out">
           <h2 className={`text-xl sm:text-2xl font-bold mb-2 ${headerStyle}`}>Real-Time Standings</h2>
 
-          <button
-            onClick={() => setCollapsed(!collapsed)}
-            className="mb-4 px-6 py-2 rounded-full bg-yellow-600 text-white font-semibold tracking-wide shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 ease-in-out"
-          >
-            {collapsed ? "Expand View" : "Collapse View"}
-          </button>
+          <div className="flex gap-2 mb-4">
+            <button
+              onClick={() => setCollapsed(!collapsed)}
+              className="px-6 py-2 rounded-full bg-yellow-600 text-white font-semibold tracking-wide shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 ease-in-out"
+            >
+              {collapsed ? "Expand View" : "Collapse View"}
+            </button>
+
+            <button
+              onClick={() => setCardView(!cardView)}
+              className="px-6 py-2 rounded-full bg-gray-800 text-white font-semibold tracking-wide shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 transition-all duration-300 ease-in-out"
+            >
+              {cardView ? "View Table" : "View Cards"}
+            </button>
+          </div>
 
           {mainData.length > 2 ? (
-            <div className="overflow-x-auto transition-all duration-300 ease-in-out">
-              <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out">
-                <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
-                  {!collapsed && (
-                    <tr>
-                      {mainData[1]?.slice(0, 12).map((_, j) => {
-                        if (j === 6) {
-                          return (
-                            <th
-                              key="completed-header"
-                              colSpan={4}
-                              className="text-center font-bold border-b border-black border-r-2 border-black"
-                            >
-                              Completed Rounds
-                            </th>
-                          );
-                        }
-                        if (j === 10) {
-                          return (
-                            <th
-                              key="current-header"
-                              colSpan={2}
-                              className="text-center font-bold border-b border-black border-r-2 border-black"
-                            >
-                              Current Round
-                            </th>
-                          );
-                        }
-                        return j < 6 ? <th key={j}></th> : null;
-                      })}
-                    </tr>
-                  )}
-                  <tr>
-                    {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
-                      <th
-                        key={j}
-                        className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
-                          ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
-                          ${j === 0 ? "rounded-tl-xl" : ""}
-                          ${j === 11 ? "rounded-tr-xl" : ""}`}
-                      >
-                        {mainData[1]?.[j]}
-                      </th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {mainData.slice(2).map((row, i) => {
-                    const displayRowIndex = i + 3;
-                    const isVisible =
-                      !collapsed ||
-                      displayRowIndex === 3 ||
-                      displayRowIndex === 8 ||
-                      displayRowIndex === 13 ||
-                      displayRowIndex === 18 ||
-                      displayRowIndex % 5 === 3;
-
-                    return (
-                      <tr
-                        key={i}
-                        className={`text-center transition-all duration-500 ease-in-out overflow-hidden ${
-                          isVisible ? "max-h-[100px] opacity-100" : "max-h-0 opacity-0"
-                        }`}
-                        style={{
-                          display: "table-row",
-                        }}
-                      >
-                        {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
-                          <td
-                            key={j}
-                            className={`px-2 py-1 whitespace-nowrap transition-all duration-300 ease-in-out
-                              ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
-                              ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
-                              ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}`}
-                          >
-                            {row[j]}
-                          </td>
-                        ))}
+            cardView ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {mainData.slice(2).map((row, i) => (
+                  <div key={i} className="bg-white/80 backdrop-blur rounded-xl border border-black shadow-lg p-4">
+                    <h3 className="text-xl font-bold text-yellow-800 mb-2">{row[0]}</h3>
+                    <p className="text-sm text-gray-700 mb-1"><strong>Rank:</strong> {row[1]}</p>
+                    <p className="text-sm text-gray-700 mb-1"><strong>Total:</strong> {row[2]}</p>
+                    <p className="text-sm text-gray-700"><strong>Golfers:</strong> {row.slice(6, 12).filter(Boolean).join(", ")}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="overflow-x-auto transition-all duration-300 ease-in-out">
+                <table className="w-full text-sm bg-white/30 rounded-xl border border-black overflow-hidden transition-all duration-300 ease-in-out">
+                  <thead className="sticky top-0 bg-white/30 backdrop-blur-md z-10">
+                    {!collapsed && (
+                      <tr>
+                        {mainData[1]?.slice(0, 12).map((_, j) => {
+                          if (j === 6) {
+                            return (
+                              <th
+                                key="completed-header"
+                                colSpan={4}
+                                className="text-center font-bold border-b border-black border-r-2 border-black"
+                              >
+                                Completed Rounds
+                              </th>
+                            );
+                          }
+                          if (j === 10) {
+                            return (
+                              <th
+                                key="current-header"
+                                colSpan={2}
+                                className="text-center font-bold border-b border-black border-r-2 border-black"
+                              >
+                                Current Round
+                              </th>
+                            );
+                          }
+                          return j < 6 ? <th key={j}></th> : null;
+                        })}
                       </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
+                    )}
+                    <tr>
+                      {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
+                        <th
+                          key={j}
+                          className={`px-2 py-1 font-bold text-center border-b border-black whitespace-nowrap 
+                            ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
+                            ${j === 0 ? "rounded-tl-xl" : ""}
+                            ${j === 11 ? "rounded-tr-xl" : ""}`}
+                        >
+                          {mainData[1]?.[j]}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {mainData.slice(2).map((row, i) => {
+                      const displayRowIndex = i + 3;
+                      const shouldDisplay =
+                        !collapsed ||
+                        displayRowIndex === 3 ||
+                        displayRowIndex === 8 ||
+                        displayRowIndex === 13 ||
+                        displayRowIndex === 18 ||
+                        displayRowIndex % 5 === 3;
+
+                      if (!shouldDisplay) return null;
+
+                      return (
+                        <tr
+                          key={i}
+                          className={`text-center ${
+                            (i + 1) % 5 === 0 || i === mainData.length - 4 ? "border-b border-black" : ""
+                          }`}
+                        >
+                          {(collapsed ? [0, 1, 4] : Array.from({ length: 12 }, (_, j) => j)).map((j) => (
+                            <td
+                              key={j}
+                              className={`px-2 py-1 whitespace-nowrap 
+                                ${[4, 5, 9].includes(j) && !collapsed ? "border-r-2 border-black" : ""}
+                                ${i === mainData.length - 3 && j === 0 ? "rounded-bl-xl" : ""}
+                                ${i === mainData.length - 3 && j === 11 ? "rounded-br-xl" : ""}`}
+                            >
+                              {row[j]}
+                            </td>
+                          ))}
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            )
           ) : (
             <p>Loading Data...</p>
           )}
