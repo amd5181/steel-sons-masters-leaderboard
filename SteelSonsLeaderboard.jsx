@@ -69,7 +69,7 @@ export default function SteelSonsLeaderboard() {
   const headerStyle = "text-yellow-700";
 
   return (
-<div className="min-h-screen w-full bg-gradient-to-b from-white via-white/80 to-white/70 p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
+<div className="min-h-screen w-full bg-white/90 p-2 sm:p-4 font-inter max-w-screen-2xl mx-auto">
       <div className="text-center mb-8 z-10">
         <h1 className="text-4xl sm:text-6xl font-extrabold tracking-wide bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-600 text-transparent bg-clip-text drop-shadow-[0_3px_3px_rgba(0,0,0,0.4)] font-serif uppercase">
           Steel Sons Masters Pool
