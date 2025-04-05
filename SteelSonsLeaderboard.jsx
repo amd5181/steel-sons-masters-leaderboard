@@ -221,8 +221,9 @@ export default function SteelSonsLeaderboard() {
           )}
         </div>
 
-        {/* Right Panel — Masters Leaderboard Only */}
+        {/* Right Panel */}
         <div className="flex flex-col w-full lg:max-w-sm space-y-6">
+          {/* Masters Leaderboard */}
           <div className="rounded-2xl border border-black p-4 bg-white/30">
             <h2 className={`text-lg sm:text-xl font-semibold mb-2 ${headerStyle}`}>Masters Leaderboard</h2>
             <table className="w-full text-sm bg-white/30 rounded-xl border border-black text-black">
@@ -235,6 +236,18 @@ export default function SteelSonsLeaderboard() {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Live Broadcast Embed */}
+          <div className="rounded-2xl border border-black p-4 bg-white/30">
+            <h2 className="text-lg sm:text-xl font-semibold mb-2 text-yellow-700">Live Broadcast</h2>
+            <div className="w-full aspect-video">
+              <iframe
+                src="https://tv.garden/us/XM7JIFylNrPk0k"
+                className="w-full h-full rounded-xl"
+                allowFullScreen
+              />
+            </div>
           </div>
         </div>
       </div>
