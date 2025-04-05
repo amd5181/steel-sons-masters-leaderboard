@@ -15,9 +15,6 @@ body {
 
 
   background: url('/bridge.jpg') no-repeat center center;
-  background-size: cover;
-  opacity: 0.16; /* softened for subtle background */
-  position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
