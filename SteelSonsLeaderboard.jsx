@@ -96,7 +96,7 @@ export default function SteelSonsLeaderboard() {
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 mb-4">
           <a
-            href="https://script.google.com/macros/s/AKfycbxmh5gKvTyE0V0K8m7PmbiBTxTQEupSEjy1dl6fEVPZaTtNlHDBF5DXdWjHUeVOjPz9KQ/exec"
+            href="https://script.google.com/macros/s/AKfycbwjUAO3ZtZXE8fLfPxG-xqvSqod7vQV16-f11ZaNMJ2nPrwonoPl4gKWmPDFruykhbGhg/exec"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-yellow-700 hover:bg-yellow-800 text-white font-semibold px-4 py-2 rounded-full shadow transition"
@@ -117,7 +117,7 @@ export default function SteelSonsLeaderboard() {
         </p>
       </div>
 
-      <div ></div> 
+      <div className="bridge-watermark"></div>
       <img src="/arnold-palmer.png" alt="Arnold Palmer" className="arnold-palmer" />
 
       <div className="flex flex-col-reverse lg:flex-row gap-4 w-full overflow-x-auto">
