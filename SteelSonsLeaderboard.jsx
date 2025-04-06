@@ -96,7 +96,7 @@ export default function SteelSonsLeaderboard() {
 
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6 mb-4">
           <a
-            href="https://script.google.com/macros/s/AKfycbxygyGfamAD9i5XLtLmUgGf9l_lRBzqjyn3Jewa7jcnvHxlZuq_SfSJpBIGTk7CYjqQXQ/exec"
+            href="https://script.google.com/macros/s/AKfycbzXFn7peyijHzA0dZHZUfmQEPTuchWjwst3OK6npvXBlMM9HkO7CeUw-XMhh6S7FAl38g/exec"
             target="_blank"
             rel="noopener noreferrer"
             className="bg-yellow-700 hover:bg-yellow-800 text-white font-semibold px-4 py-2 rounded-full shadow transition"
