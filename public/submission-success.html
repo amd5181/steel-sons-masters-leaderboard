@@ -43,11 +43,53 @@
     a:hover {
       background-color: #ffea70;
     }
+
+    .payment-links {
+      margin-top: 2rem;
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .payment-button {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: white;
+      color: #0b4d1c;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+
+    .payment-button:hover {
+      transform: scale(1.05);
+    }
+
+    .payment-button img {
+      width: 24px;
+      height: 24px;
+    }
   </style>
 </head>
 <body>
   <h1>Thank You!</h1>
   <p>Your submission was successful. Please return to the main form to make any adjustments to your team(s).<br><br>Welcome to the 2025 Steel Sons Masters Pool!</p>
+  
+  <div class="payment-links">
+    <a href="https://venmo.com/u/amd5181" target="_blank" class="payment-button">
+      <img src="https://cdn.iconscout.com/icon/free/png-256/venmo-2-569346.png" alt="Venmo" />
+      Venmo
+    </a>
+    <a href="https://www.paypal.com/paypalme/adavidfr2006" target="_blank" class="payment-button">
+      <img src="https://www.paypalobjects.com/webstatic/icon/pp258.png" alt="PayPal" />
+      PayPal
+    </a>
+  </div>
+
   <a href="https://script.google.com/macros/s/AKfycbyXAnIAMhF4dfKzndshQtXD2QWqUfQSvp1b_D-ipCOD6x1GU9hIJ1vQSQnkY3beNrw/exec" target="_blank">Return to Main Form</a>
 </body>
 </html>
