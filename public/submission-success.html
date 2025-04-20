@@ -8,8 +8,8 @@
     body {
       margin: 0;
       padding: 0;
-      background-color: #0b4d1c; /* Masters green */
-      color: #ffd700; /* Gold */
+      background-color: #1c1c1c; /* Dark steel background */
+      color: #FFD700; /* Pittsburgh gold */
       font-family: 'Georgia', serif;
       display: flex;
       flex-direction: column;
@@ -27,21 +27,7 @@
     p {
       font-size: 1.2rem;
       max-width: 600px;
-    }
-
-    a {
-      margin-top: 2rem;
-      padding: 0.75rem 1.5rem;
-      background-color: #ffd700;
-      color: #0b4d1c;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 10px;
-      transition: background-color 0.3s ease;
-    }
-
-    a:hover {
-      background-color: #ffea70;
+      margin-bottom: 2rem;
     }
 
     .payment-section {
@@ -51,7 +37,7 @@
     .payment-section h2 {
       font-size: 1.5rem;
       margin-bottom: 1rem;
-      color: #ffd700;
+      color: #FFD700;
     }
 
     .payment-links {
@@ -67,7 +53,7 @@
       gap: 0.5rem;
       padding: 0.5rem 1rem;
       background-color: white;
-      color: #0b4d1c;
+      color: #1c1c1c;
       border-radius: 8px;
       text-decoration: none;
       font-weight: bold;
@@ -82,11 +68,17 @@
       width: 24px;
       height: 24px;
     }
+
+    .refresh-message {
+      font-size: 1rem;
+      color: #ccc;
+      margin-top: 2.5rem;
+    }
   </style>
 </head>
 <body>
   <h1>Thank You!</h1>
-  <p>Your submission was successful. Please return to the main form to make any adjustments to your team(s).<br><br>Welcome to the 2025 Steel Sons Masters Pool!</p>
+  <p>Your submission was successful. Please return to the My Teams Hub to see your updated entries.<br><br>Welcome to this Steel Sons Golf Pool!</p>
   
   <div class="payment-section">
     <h2>Please pay – $20 per entry</h2>
@@ -102,6 +94,8 @@
     </div>
   </div>
 
-  <a href="https://script.google.com/macros/s/AKfycbyXAnIAMhF4dfKzndshQtXD2QWqUfQSvp1b_D-ipCOD6x1GU9hIJ1vQSQnkY3beNrw/exec" target="_blank">Return to Main Form</a>
+  <div class="refresh-message">
+    Please refresh your My Teams Hub to see updates.
+  </div>
 </body>
 </html>
